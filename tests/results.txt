@@ -1,0 +1,26 @@
+PASS: input initially idle
+PASS: first key press
+PASS: second key no duplicate press
+PASS: one key released keeps action down
+PASS: last key releases action
+PASS: release pulse lasts one update
+PASS: rebind held key no phantom press
+PASS: sweep stops at wall without tunneling
+PASS: slide along wall
+PASS: negative horizontal sweep
+PASS: vertical sweep
+PASS: negative vertical sweep
+PASS: interaction blocked by wall
+PASS: nearest interaction found
+PASS: method bound to target
+PASS: disabled interaction excluded
+PASS: paused player does not move
+PASS: normalized diagonal speed
+PASS: last frame retains full duration
+PASS: one shot completes
+PASS: end signal is one tick
+PASS: skipped frame crossing detected
+PASS: loop crossing detected
+PASS: same animation does not reset
+PASS: multiple loops remain detectable
+BASE_TEST_RESULT passes=25 failures=0
