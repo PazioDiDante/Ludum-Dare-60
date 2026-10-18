@@ -1,0 +1,22 @@
+2026-10-18: Failed robot power assignments now point to the generator.
+
+An unavailable generator triggers OFF/Broke alternation on its control button.
+A running generator with insufficient free capacity flashes the current energy
+lamps and energy icon between full and 20% opacity, preserving their fill state.
+Feedback lasts 1.44 seconds with a phase every 0.18 seconds; another rejected
+click restarts it. Pausing freezes it. Successful allocation, release, restart,
+shutdown or repair clears stale feedback. Reserved but unpowered robots also
+point to the generator when clicked during an outage. No reservations or real
+generator state change on failed clicks.
+
+Isolated Windows VM results, all Runner exits 0:
+POWER_HINT_RESULT passes=17 failures=0
+GENERATOR_CONTROL_RESULT passes=29 failures=0
+POWER_TEST_RESULT passes=18 failures=0
+
+Rendered pixel checks confirm energy flashing leaves the heat lamp unchanged.
+Inspected dim/bright lamp snapshots. Actual Chrome/WebGL click sequence confirms
+the generator's OFF/Broke alternation; no page errors or failed HTTP requests.
+HTML5 compilation succeeded, debug remains disabled. Updated the existing ZIP
+Output/ScrapTreasure-html5-font-fix.zip: 48 files, 866154 bytes, CRC verified.
+Screenshots/logs: Temp/power-hint-check and Temp/html5-check.

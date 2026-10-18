@@ -1,0 +1,32 @@
+ORDER_CACHE ms=139.07 preparation_ms=206.65 max_slice_ms=1.95
+ORDER_SAMPLE seed=1 fallback=0 ms=41.78 mean=2.94 attempts=1
+ORDER_SAMPLE seed=2 fallback=0 ms=119.43 mean=3.03 attempts=4
+ORDER_SAMPLE seed=3 fallback=0 ms=146.30 mean=2.56 attempts=6
+ORDER_SAMPLE seed=4 fallback=0 ms=116.18 mean=2.66 attempts=5
+ORDER_SAMPLE seed=5 fallback=0 ms=360.63 mean=2.66 attempts=13
+ORDER_SAMPLE seed=6 fallback=0 ms=46.96 mean=2.50 attempts=1
+ORDER_SAMPLE seed=7 fallback=0 ms=32.22 mean=2.75 attempts=1
+ORDER_SAMPLE seed=8 fallback=0 ms=43.70 mean=3 attempts=2
+ORDER_SAMPLE seed=9 fallback=0 ms=54.41 mean=2.91 attempts=2
+ORDER_SAMPLE seed=10 fallback=0 ms=43.07 mean=2.69 attempts=2
+ORDER_SAMPLE seed=11 fallback=0 ms=26.10 mean=3.12 attempts=1
+ORDER_SAMPLE seed=12 fallback=0 ms=78.97 mean=2.69 attempts=3
+ORDER_SAMPLE seed=13 fallback=0 ms=32.41 mean=2.56 attempts=1
+ORDER_SAMPLE seed=14 fallback=0 ms=236.93 mean=2.81 attempts=8
+ORDER_SAMPLE seed=15 fallback=0 ms=230.96 mean=2.66 attempts=8
+ORDER_SAMPLE seed=16 fallback=0 ms=109.34 mean=2.97 attempts=4
+ORDER_SAMPLE seed=17 fallback=0 ms=53.53 mean=3.41 attempts=2
+ORDER_SAMPLE seed=18 fallback=0 ms=36.40 mean=2.62 attempts=1
+ORDER_SAMPLE seed=19 fallback=0 ms=60.86 mean=2.72 attempts=2
+ORDER_SAMPLE seed=20 fallback=0 ms=77.64 mean=2.75 attempts=4
+ORDER_PERFORMANCE generated=20 fallback=0 mean_ms=97.39 max_ms=360.63 max_slice_ms=1.76
+ORDER_TEST_RESULT passes=197 failures=0
+###game_end###0
+
+Main and isolated test builds: GMAssetCompiler 2026.0.0.23 Windows VM; no errors/warnings.
+STARTER_TEST_RESULT passes=61 failures=0
+TABLE_TEST_RESULT passes=12 failures=0
+DUAL_PORT_POWER_RESULT passes=38 failures=0
+GENERATED_NETWORK_RESULT passes=768 failures=0
+ORDER_REGRESSION_DONE
+###game_end###0

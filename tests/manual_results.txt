@@ -1,0 +1,54 @@
+
+***************************************
+ *     GameMaker v2026.0.0.23    *
+***************************************
+Setting scheduler resolution to 1
+Attempting to use high process priority settings
+Set process priority to HIGH_PRIORITY_CLASS
+Set main thread priority to HIGHEST
+Registered with MMCSS 'Games' task
+Set MMCSS thread priority to CRITICAL
+Reading File C:\Users\ADMIN\Documents\ChatGPT\Ludum Dare\mouse-test-build\Base Game.win took 0 ms
+DirectX11: Using hardware device
+Collision Event time(microsecs)=6
+Variable_Global_Init()
+PrepareGame()
+Audio_Init()
+Audio group 0 -> Loaded
+Attempting to set gamepadcount to 12
+Game_Prepare()
+Script_Prepare() 
+TimeLine_Prepare() 
+Object_Prepare() 
+Room_Prepare() 
+Finished PrepareGame() 
+Run_Start
+Done g_EffectsManager.Init()
+Done RenderStateManager
+CreateColPairs took 0.000000s 1 usecs for 15 object types obj_col_numb=0 physobjcount=0 resizes 0 final size 0
+Done ObjectLists
+Done Extension_Initialize
+About to startroom
+MANUAL_PASS empty initial catalog
+MANUAL_PASS cannot buy generated presets
+Total memory used = 22262419 (0x0153b293) bytes 21.23MB
+Free memory = 6139648 (0x005daf00) bytes 5.86MB
+Peak memory used = 22631628 (0x015954cc) bytes 21.58MB
+**********************************.
+Entering main loop.
+**********************************.
+MANUAL###game_end###254
+Attempting to set gamepadcount to 0
+Script_Free called with 229 and global 13
+Unsetting previous scheduler resolution of 1
+o three modules per device
+MANUAL_PASS one module moved and goal satisfied
+MANUAL_PASS slot limit prevents loss
+MANUAL_PASS return restores inventory and goal
+MANUAL_PASS invalid moves safe
+MANUAL_PASS settings edits do not mutate active run
+MANUAL_RETURN_PASS
+###game_end###0
+Attempting to set gamepadcount to 0
+Script_Free called with 229 and global 13
+Unsetting previous scheduler resolution of 1

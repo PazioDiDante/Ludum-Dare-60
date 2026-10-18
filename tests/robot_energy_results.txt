@@ -1,0 +1,19 @@
+2026-10-18: Purchased robots share a continuous energy row per type.
+
+Each robot contributes its full energy cost in purchase order. All cells remain
+visible when another instance becomes the front of the table stack. Each block
+shows its own robot's powered state. Left/right clicks select that robot and
+allocate/release only its power. The shared action and recycler preview shift
+with the row width; they continue to target the selected front instance.
+
+Isolated Windows VM Runner results (all exits 0):
+ROBOT_ENERGY_RESULT passes=33 failures=0
+TABLE_LAYOUT_RESULT passes=40 failures=0
+ROBOT_VISUAL_RESULT passes=33 failures=0
+ASSEMBLER_VISUAL_RESULT passes=24 failures=0
+
+Energy checks cover real purchases, multi-cell assembler blocks, independent
+allocation/release, stable positions after arrow selection, selected actions,
+generator outage/restoration and removed instances. Rendered pixels confirm
+empty/full/empty state visibility for three solder robots. Inspected the energy
+row before/after front selection and a table with five stacked assemblers.

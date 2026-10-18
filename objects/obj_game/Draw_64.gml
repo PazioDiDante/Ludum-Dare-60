@@ -1,39 +1,22 @@
-draw_set_alpha(1); draw_set_font(-1);
-draw_set_halign(fa_left); draw_set_valign(fa_top);
-draw_set_color(c_white);
-draw_text(24, 16, "BASE PROJECT  /  neutral test room");
-draw_text(24, 38, "WASD / arrows: move    E / Space: interact    Esc / P: pause    F1: debug");
-var p = instance_find(obj_player, 0);
-if (game_running() && instance_exists(p)) {
-    var target = p.interaction_target;
-    if (instance_exists(target)) draw_text(24, 64, "[E / Space] " + target.interaction_label);
+campaign_gui_draw(id);
+generator_draw(id);
+robots_draw(id);
+draw_set_alpha(1); draw_set_font(game_font_default());
+draw_set_halign(fa_left); draw_set_valign(fa_top); draw_set_color(c_white);
+if (game_running()) {
+    draw_set_color(make_color_rgb(65,75,95)); draw_rectangle((room_width-120),16,(room_width-24),50,false);
+    draw_set_color(c_white); draw_text((room_width-104),23,"Pause");
 }
-if (global.notice_time > 0) draw_text(560, 64, global.notice);
-if (global.debug_enabled && instance_exists(p)) {
-    draw_text(24, 116, "DEBUG | FPS: " + string(fps_real) + " | F5: reset");
-    draw_text(24, 136, "x: " + string_format(p.x, 0, 2) + " y: " + string_format(p.y, 0, 2));
-    draw_text(24, 156, "Interact down/pressed/released: " + string(input_down(Action.Interact))
-        + "/" + string(input_pressed(Action.Interact)) + "/" + string(input_released(Action.Interact)));
-}
-if (global.mode != GameMode.Play) {
-    draw_set_color(c_black); draw_set_alpha(0.8);
-    draw_rectangle(240, 175, 720, 420, false);
-    draw_set_alpha(1); draw_set_color(c_white);
-    draw_set_halign(fa_center);
-    if (global.mode == GameMode.Menu) {
-        draw_text(480, 220, "GAMEMAKER BASE");
-        draw_text(480, 270, "Enter - start / continue test");
-        draw_text(480, 320, "No theme, objectives, art or sound.");
-    } else {
-        draw_text(480, 210, "PAUSED");
-        var labels = ["Resume", "Reset test room", "Main menu"];
-        for (var i = 0; i < array_length(labels); ++i) {
-            draw_set_color(i == menu_index ? c_yellow : c_white);
-            draw_text(480, 255 + i * 32, (i == menu_index ? "> " : "") + labels[i]);
-        }
-        draw_set_color(c_white);
-        draw_text(480, 375, "Up / Down + Enter   |   Esc - resume");
+if (global.mode == GameMode.Pause) {
+    draw_set_color(c_black); draw_set_alpha(0.85); draw_rectangle(240,175,720,430,false);
+    draw_set_alpha(1); draw_set_color(c_white); draw_set_halign(fa_center);
+    draw_text(480,205,"PAUSED");
+    var labels = ["Resume","Table"];
+    for (var i = 0; i < array_length(labels); ++i) {
+        var r = ui_item_rect(i);
+        draw_set_color(i == menu_index ? make_color_rgb(95,105,130) : make_color_rgb(45,50,65));
+        draw_rectangle(r[0],r[1],r[2],r[3],false);
+        draw_set_color(c_white); draw_text(480,r[1]+8,labels[i]);
     }
 }
-draw_set_halign(fa_left); draw_set_valign(fa_top);
-draw_set_color(c_white); draw_set_alpha(1);
+draw_set_halign(fa_left); draw_set_valign(fa_top); draw_set_color(c_white); draw_set_alpha(1);

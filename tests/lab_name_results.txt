@@ -1,0 +1,3 @@
+LAB_NAME_RESULT passes=12 failures=0
+###game_end###0
+Main/test compile: no errors/warnings. Inspected preview.png: Cyrillic list entry and name field readable; English UI retains Edit Undo. Original balance_settings.json SHA256 unchanged.

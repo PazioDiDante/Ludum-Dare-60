@@ -1,0 +1,30 @@
+2026-10-18 — GameMaker 2026.0.0.23, Windows VM
+Main and isolated projects compile without errors or warnings.
+DEBUG_INVENTORY_RESULT passes=148 failures=0
+GRID_TEST_RESULT passes=18 failures=0
+FIRST_ORDERS_RESULT passes=101 physical_solution_passes=42 failures=0
+ASSEMBLER_RESULT passes=77 failures=0
+RECYCLER_RESULT passes=53 failures=0
+Total: 439 reported assertions. All five final suite Runner exits: 0.
+
+Debug startup: 1000 coins, 50 scrap, first authored order, all sixteen catalog
+module types seeded once as persistent infinite specimens. Each pickup creates
+an independent physical instance with authored stats and shape. Copies can be
+rotated, installed and recycled without changing or consuming the specimen.
+Cancelling or returning a copy discards it, preserving the original inventory
+slot and correctly cleaning board cells/child ownership. Ordinary loot retains
+finite pickup, storage and cancellation semantics.
+
+Skip (debug) is shown only for active orders when debug_tools is enabled.
+It cancels held input safely, destroys installed order parts, awards nothing,
+and immediately opens the next order. Verified the full six-order sequence,
+then the normal generic seventh order. Table/recycler modes and disabled debug
+cannot skip. Normal physical solutions and rewarded delivery for all six
+authored orders also pass, including original introductory loot behavior.
+
+Inspected debug-order-1.png and debug-order-6.png under
+Temp/debug-inventory-check; all catalog types are visible and the skip button
+fits beside Deliver. No manual mouse pass. Test-only focus/file-sandbox
+overrides are isolated; a harness environment variable selects debug startup
+only in its project copy. The obsolete grid test's fixed 32px calculations
+were updated to use the actual device-dependent inventory cell size.

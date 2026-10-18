@@ -1,0 +1,11 @@
+2026-10-18
+Main and isolated test builds: GameMaker 2026.0.0.23, no errors or warnings.
+DUAL_PORT_POWER_RESULT passes=38 failures=0
+GENERATED_NETWORK_RESULT passes=768 failures=0
+
+Either board contact powers its attached modules before circuit closure.
+Mirrored tests cover extended and disjoint branches, active energy/heat/stability,
+isolated module weight, closure, splitting, removal of one/both source wires,
+and both contacts attached to the same module without duplicate counting.
+Order completion still requires a closed circuit and valid stats.
+Existing generated-donor wiring and robot dismantling checks passed.

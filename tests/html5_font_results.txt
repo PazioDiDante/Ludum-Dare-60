@@ -1,0 +1,30 @@
+2026-10-18: Edit Undo now renders in HTML5 with WebGL.
+
+Cause: font_add with a TTF file is unsupported in the HTML5 WebGL renderer.
+Reference: https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Reference/Asset_Management/Fonts/font_add.htm
+
+Added native baked font assets fnt_editundo_16, fnt_editundo_18 and
+fnt_editundo_24. Their PNGs and glyph advances were exported from the existing
+Windows TTF renderer, retaining the supplied font's appearance and spacing.
+game_font_create selects these resources when os_browser is a browser; desktop
+builds keep their existing TTF path. game_font_delete protects the shared native
+resources when leaving game/laboratory objects.
+
+Validation:
+- Main HTML5 compilation completed; no compile errors.
+- Chrome with WebGL: table, shop, board status, manual laboratory and return to
+  the table all display text. Inspected screenshots for all three font sizes.
+  No page errors and no HTTP asset failures during the browser pass.
+- Main and isolated Windows VM compilation completed without errors/warnings.
+- Existing CURRENCY_UI_RESULT passes=7 failures=0; Runner exit 0, including both
+  laboratory creation/cleanup paths.
+- Native HTML5 display options, logical GUI resolution and window size retained.
+
+Export: Output/ScrapTreasure-html5-font-fix.zip, 28 files, 761986 bytes.
+index.html is at the ZIP root and CRC verification passed. Archive contains the
+tested clean HTML5 export, with the current project's debug settings retained.
+Igor's command-line Package step wrote the web files but could not finish its
+archive stage without targetType metadata; the ZIP was assembled from those
+web files separately. Build logs/screenshots are in Temp/html5-check.
+
+2026-10-18 regression: Editor-generated .old.yy/.old.png backups prove that the 16/18 resources had been regenerated after the working export. Active PNGs contained substitute glyphs, while backups exactly matched the tested original atlases; line heights changed 19->29 and 22->33, and canGenerateBitmap became true. Reviewed recent changes in the audio chat: code changes concerned audio and did not edit font resources. Restored the original three atlas/metric pairs from the tested snapshot and enabled maintainGms1Font=true with canGenerateBitmap=false/regenerateBitmap=false to preserve cached bitmap fonts. Source atlas hashes match the original after compilation. Actual Chrome/WebGL table/shop/board and OFF/Broke hint checks passed with no page errors, asset failures or console messages; visually inspected Edit Undo in shop and circuit status. IDE close/reopen behavior itself was not exercised. Output/ScrapTreasure-html5-font-fix.zip refreshed: 48 files, 864728 bytes; ZIP CRC passed. Font resource handling documented in fonts/README.txt.

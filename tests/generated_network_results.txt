@@ -1,0 +1,42 @@
+
+***************************************
+ *     GameMaker v2026.0.0.23    *
+***************************************
+Setting scheduler resolution to 1
+Attempting to use high process priority settings
+Set process priority to HIGH_PRIORITY_CLASS
+Set main thread priority to HIGHEST
+Registered with MMCSS 'Games' task
+Set MMCSS thread priority to CRITICAL
+Reading File D:\Games Projects\Game Maker Studio\Base Game\Base Game\Temp\network-runtime\Base Game.win took 0 ms
+DirectX11: Using hardware device
+Collision Event time(microsecs)=6
+Variable_Global_Init()
+PrepareGame()
+Audio_Init()
+Audio group 0 -> Loaded
+Attempting to set gamepadcount to 12
+Game_Prepare()
+Script_Prepare() 
+TimeLine_Prepare() 
+Object_Prepare() 
+Room_Prepare() 
+Finished PrepareGame() 
+Run_Start
+Done g_EffectsManager.Init()
+Done RenderStateManager
+CreateColPairs took 0.000000s 2 usecs for 26 object types obj_col_numb=0 physobjcount=0 resizes 0 final size 0
+Done ObjectLists
+Done Extension_Initialize
+About to startroom
+Total memory used = 23078707 (0x01602733) bytes 22.01MB
+Free memory = 5832512 (0x0058ff40) bytes 5.56MB
+Peak memory used = 23122592 (0x0160d2a0) bytes 22.05MB
+**********************************.
+Entering main loop.
+**********************************.
+GENERATED_NETWORK_RESULT passes=768 failures=0
+###game_end###0
+Attempting to set gamepadcount to 0
+Script_Free called with 413 and global 17
+Unsetting previous scheduler resolution of 1

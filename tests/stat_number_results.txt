@@ -1,0 +1,6 @@
+2026-10-18: Numeric requirement values
+Main and isolated test projects compiled with GameMaker runtime 2026.0.0.23; no errors or warnings.
+STAT_TEST_RESULT passes=31 failures=0
+Verified rendered numeric text colours: #00AEF0 outside the range and #00A651 inside it, including the lower endpoint, zero, negative fractions and values beyond 20.
+Existing filled/empty sprite checks and twentieth-cell checks for all three actual orders passed with the 16-pixel cell width.
+Inspected fixed-stat-panel-preview.png: icon, number and all twenty cells fit the existing sidebar.

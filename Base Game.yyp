@@ -1,151 +1,205 @@
 {
-  "$GMProject": "v1",
-  "%Name": "Base Game",
-  "AudioGroups": [
-    {
-      "$GMAudioGroup": "v1",
-      "%Name": "audiogroup_default",
-      "exportDir": "",
-      "name": "audiogroup_default",
-      "resourceType": "GMAudioGroup",
-      "resourceVersion": "2.0",
-      "targets": -1
-    }
+  "$GMProject":"v1",
+  "%Name":"Base Game",
+  "AudioGroups":[
+    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
-  "configs": {
-    "children": [],
-    "name": "Default"
+  "configs":{
+    "children":[],
+    "name":"Default",
   },
-  "defaultScriptType": 0,
-  "Folders": [],
-  "ForcedPrefabProjectReferences": [],
-  "IncludedFiles": [],
-  "isEcma": false,
-  "LibraryEmitters": [],
-  "MetaData": {
-    "IDEVersion": "2026.0.0.16"
+  "defaultScriptType":0,
+  "Folders":[
+    {"$GMFolder":"","%Name":"Modules","folderPath":"folders/Modules.yy","name":"Modules","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Parents","folderPath":"folders/Parents.yy","name":"Parents","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Small Devices","folderPath":"folders/Small Devices.yy","name":"Small Devices","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Sounds","folderPath":"folders/Sounds.yy","name":"Sounds","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Sprites","folderPath":"folders/Sprites.yy","name":"Sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Modules","folderPath":"folders/Sprites/Modules.yy","name":"Modules","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Orders","folderPath":"folders/Sprites/Orders.yy","name":"Orders","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Robots","folderPath":"folders/Sprites/Robots.yy","name":"Robots","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"UI","folderPath":"folders/Sprites/UI.yy","name":"UI","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"OLD UI","folderPath":"folders/Sprites/UI/OLD UI.yy","name":"OLD UI","resourceType":"GMFolder","resourceVersion":"2.0",},
+  ],
+  "ForcedPrefabProjectReferences":[],
+  "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":"campaign_catalog.json","CopyToMask":-1,"filePath":"datafiles","name":"campaign_catalog.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"editundo.ttf","CopyToMask":-1,"filePath":"datafiles/fonts/edit-undo","name":"editundo.ttf","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"editundo.txt","CopyToMask":-1,"filePath":"datafiles/fonts/edit-undo","name":"editundo.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"tier2_balance.json","CopyToMask":-1,"filePath":"datafiles","name":"tier2_balance.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+  ],
+  "isEcma":false,
+  "LibraryEmitters":[],
+  "MetaData":{
+    "IDEVersion":"2026.0.0.16",
   },
-  "name": "Base Game",
-  "resources": [
-    {
-      "id": {
-        "name": "Room1",
-        "path": "rooms/Room1/Room1.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "scr_input",
-        "path": "scripts/scr_input/scr_input.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "scr_world",
-        "path": "scripts/scr_world/scr_world.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "scr_animation",
-        "path": "scripts/scr_animation/scr_animation.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "par_entity",
-        "path": "objects/par_entity/par_entity.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "par_solid",
-        "path": "objects/par_solid/par_solid.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "par_actor",
-        "path": "objects/par_actor/par_actor.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "par_interactable",
-        "path": "objects/par_interactable/par_interactable.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "obj_wall",
-        "path": "objects/obj_wall/obj_wall.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "obj_switch",
-        "path": "objects/obj_switch/obj_switch.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "obj_player",
-        "path": "objects/obj_player/obj_player.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "obj_game",
-        "path": "objects/obj_game/obj_game.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "spr_base_wall",
-        "path": "sprites/spr_base_wall/spr_base_wall.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "spr_base_player",
-        "path": "sprites/spr_base_player/spr_base_player.yy"
-      }
-    },
-    {
-      "id": {
-        "name": "spr_base_switch",
-        "path": "sprites/spr_base_switch/spr_base_switch.yy"
-      }
-    }
+  "name":"Base Game",
+  "resources":[
+    {"id":{"name":"fnt_editundo_16","path":"fonts/fnt_editundo_16/fnt_editundo_16.yy",},},
+    {"id":{"name":"fnt_editundo_18","path":"fonts/fnt_editundo_18/fnt_editundo_18.yy",},},
+    {"id":{"name":"fnt_editundo_24","path":"fonts/fnt_editundo_24/fnt_editundo_24.yy",},},
+    {"id":{"name":"obj_assembler_board","path":"objects/obj_assembler_board/obj_assembler_board.yy",},},
+    {"id":{"name":"obj_balance_lab","path":"objects/obj_balance_lab/obj_balance_lab.yy",},},
+    {"id":{"name":"obj_big_order","path":"objects/obj_big_order/obj_big_order.yy",},},
+    {"id":{"name":"obj_board_mask","path":"objects/obj_board_mask/obj_board_mask.yy",},},
+    {"id":{"name":"obj_game","path":"objects/obj_game/obj_game.yy",},},
+    {"id":{"name":"obj_generator","path":"objects/obj_generator/obj_generator.yy",},},
+    {"id":{"name":"obj_manual_lab","path":"objects/obj_manual_lab/obj_manual_lab.yy",},},
+    {"id":{"name":"obj_module_accumulator","path":"objects/obj_module_accumulator/obj_module_accumulator.yy",},},
+    {"id":{"name":"obj_module_adapter_corner","path":"objects/obj_module_adapter_corner/obj_module_adapter_corner.yy",},},
+    {"id":{"name":"obj_module_adapter","path":"objects/obj_module_adapter/obj_module_adapter.yy",},},
+    {"id":{"name":"obj_module_balancer","path":"objects/obj_module_balancer/obj_module_balancer.yy",},},
+    {"id":{"name":"obj_module_battery","path":"objects/obj_module_battery/obj_module_battery.yy",},},
+    {"id":{"name":"obj_module_big_boy","path":"objects/obj_module_big_boy/obj_module_big_boy.yy",},},
+    {"id":{"name":"obj_module_coil","path":"objects/obj_module_coil/obj_module_coil.yy",},},
+    {"id":{"name":"obj_module_cooler","path":"objects/obj_module_cooler/obj_module_cooler.yy",},},
+    {"id":{"name":"obj_module_double_battery","path":"objects/obj_module_double_battery/obj_module_double_battery.yy",},},
+    {"id":{"name":"obj_module_fast_rewind","path":"objects/obj_module_fast_rewind/obj_module_fast_rewind.yy",},},
+    {"id":{"name":"obj_module_little_efficiency","path":"objects/obj_module_little_efficiency/obj_module_little_efficiency.yy",},},
+    {"id":{"name":"obj_module_little_speed","path":"objects/obj_module_little_speed/obj_module_little_speed.yy",},},
+    {"id":{"name":"obj_module_productivity","path":"objects/obj_module_productivity/obj_module_productivity.yy",},},
+    {"id":{"name":"obj_module_speed_efficiency","path":"objects/obj_module_speed_efficiency/obj_module_speed_efficiency.yy",},},
+    {"id":{"name":"obj_module_stabilizer","path":"objects/obj_module_stabilizer/obj_module_stabilizer.yy",},},
+    {"id":{"name":"obj_module_universal","path":"objects/obj_module_universal/obj_module_universal.yy",},},
+    {"id":{"name":"obj_order_2","path":"objects/obj_order_2/obj_order_2.yy",},},
+    {"id":{"name":"obj_order_3","path":"objects/obj_order_3/obj_order_3.yy",},},
+    {"id":{"name":"obj_order_4","path":"objects/obj_order_4/obj_order_4.yy",},},
+    {"id":{"name":"obj_order_5","path":"objects/obj_order_5/obj_order_5.yy",},},
+    {"id":{"name":"obj_order_6","path":"objects/obj_order_6/obj_order_6.yy",},},
+    {"id":{"name":"obj_order","path":"objects/obj_order/obj_order.yy",},},
+    {"id":{"name":"obj_radio","path":"objects/obj_radio/obj_radio.yy",},},
+    {"id":{"name":"obj_recycler_board","path":"objects/obj_recycler_board/obj_recycler_board.yy",},},
+    {"id":{"name":"obj_remote","path":"objects/obj_remote/obj_remote.yy",},},
+    {"id":{"name":"obj_robot","path":"objects/obj_robot/obj_robot.yy",},},
+    {"id":{"name":"obj_screw","path":"objects/obj_screw/obj_screw.yy",},},
+    {"id":{"name":"obj_shop","path":"objects/obj_shop/obj_shop.yy",},},
+    {"id":{"name":"par_device","path":"objects/par_device/par_device.yy",},},
+    {"id":{"name":"par_entity","path":"objects/par_entity/par_entity.yy",},},
+    {"id":{"name":"par_interactable","path":"objects/par_interactable/par_interactable.yy",},},
+    {"id":{"name":"par_module","path":"objects/par_module/par_module.yy",},},
+    {"id":{"name":"rm_balance","path":"rooms/rm_balance/rm_balance.yy",},},
+    {"id":{"name":"rm_manual","path":"rooms/rm_manual/rm_manual.yy",},},
+    {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"scr_animation","path":"scripts/scr_animation/scr_animation.yy",},},
+    {"id":{"name":"scr_assembler","path":"scripts/scr_assembler/scr_assembler.yy",},},
+    {"id":{"name":"scr_audio","path":"scripts/scr_audio/scr_audio.yy",},},
+    {"id":{"name":"scr_balance_model","path":"scripts/scr_balance_model/scr_balance_model.yy",},},
+    {"id":{"name":"scr_balance_ui","path":"scripts/scr_balance_ui/scr_balance_ui.yy",},},
+    {"id":{"name":"scr_balance","path":"scripts/scr_balance/scr_balance.yy",},},
+    {"id":{"name":"scr_board","path":"scripts/scr_board/scr_board.yy",},},
+    {"id":{"name":"scr_campaign","path":"scripts/scr_campaign/scr_campaign.yy",},},
+    {"id":{"name":"scr_connections","path":"scripts/scr_connections/scr_connections.yy",},},
+    {"id":{"name":"scr_device","path":"scripts/scr_device/scr_device.yy",},},
+    {"id":{"name":"scr_font","path":"scripts/scr_font/scr_font.yy",},},
+    {"id":{"name":"scr_input","path":"scripts/scr_input/scr_input.yy",},},
+    {"id":{"name":"scr_inventory","path":"scripts/scr_inventory/scr_inventory.yy",},},
+    {"id":{"name":"scr_manual_model","path":"scripts/scr_manual_model/scr_manual_model.yy",},},
+    {"id":{"name":"scr_manual_ui","path":"scripts/scr_manual_ui/scr_manual_ui.yy",},},
+    {"id":{"name":"scr_orders","path":"scripts/scr_orders/scr_orders.yy",},},
+    {"id":{"name":"scr_pointer","path":"scripts/scr_pointer/scr_pointer.yy",},},
+    {"id":{"name":"scr_power","path":"scripts/scr_power/scr_power.yy",},},
+    {"id":{"name":"scr_robots","path":"scripts/scr_robots/scr_robots.yy",},},
+    {"id":{"name":"scr_shop","path":"scripts/scr_shop/scr_shop.yy",},},
+    {"id":{"name":"scr_wire_visual","path":"scripts/scr_wire_visual/scr_wire_visual.yy",},},
+    {"id":{"name":"shd_module_unpowered","path":"shaders/shd_module_unpowered/shd_module_unpowered.yy",},},
+    {"id":{"name":"snd_click","path":"sounds/snd_click/snd_click.yy",},},
+    {"id":{"name":"snd_coin","path":"sounds/snd_coin/snd_coin.yy",},},
+    {"id":{"name":"snd_device_ready","path":"sounds/snd_device_ready/snd_device_ready.yy",},},
+    {"id":{"name":"snd_generator_break","path":"sounds/snd_generator_break/snd_generator_break.yy",},},
+    {"id":{"name":"snd_imposible","path":"sounds/snd_imposible/snd_imposible.yy",},},
+    {"id":{"name":"snd_modul_take_place","path":"sounds/snd_modul_take_place/snd_modul_take_place.yy",},},
+    {"id":{"name":"snd_remove_cover","path":"sounds/snd_remove_cover/snd_remove_cover.yy",},},
+    {"id":{"name":"snd_robotDone","path":"sounds/snd_robotDone/snd_robotDone.yy",},},
+    {"id":{"name":"snd_solider","path":"sounds/snd_solider/snd_solider.yy",},},
+    {"id":{"name":"snd_vint","path":"sounds/snd_vint/snd_vint.yy",},},
+    {"id":{"name":"spr_acum","path":"sprites/spr_acum/spr_acum.yy",},},
+    {"id":{"name":"spr_addapter","path":"sprites/spr_addapter/spr_addapter.yy",},},
+    {"id":{"name":"spr_addapterCorner","path":"sprites/spr_addapterCorner/spr_addapterCorner.yy",},},
+    {"id":{"name":"spr_assembler_idle","path":"sprites/spr_assembler_idle/spr_assembler_idle.yy",},},
+    {"id":{"name":"spr_assembler_work","path":"sprites/spr_assembler_work/spr_assembler_work.yy",},},
+    {"id":{"name":"spr_automoney","path":"sprites/spr_automoney/spr_automoney.yy",},},
+    {"id":{"name":"spr_balancer","path":"sprites/spr_balancer/spr_balancer.yy",},},
+    {"id":{"name":"spr_battary","path":"sprites/spr_battary/spr_battary.yy",},},
+    {"id":{"name":"spr_bigBoy","path":"sprites/spr_bigBoy/spr_bigBoy.yy",},},
+    {"id":{"name":"spr_bigEff","path":"sprites/spr_bigEff/spr_bigEff.yy",},},
+    {"id":{"name":"spr_broke","path":"sprites/spr_broke/spr_broke.yy",},},
+    {"id":{"name":"spr_cog","path":"sprites/spr_cog/spr_cog.yy",},},
+    {"id":{"name":"spr_coin","path":"sprites/spr_coin/spr_coin.yy",},},
+    {"id":{"name":"spr_coller","path":"sprites/spr_coller/spr_coller.yy",},},
+    {"id":{"name":"spr_computer_board","path":"sprites/spr_computer_board/spr_computer_board.yy",},},
+    {"id":{"name":"spr_computer_small","path":"sprites/spr_computer_small/spr_computer_small.yy",},},
+    {"id":{"name":"spr_cornerCoil","path":"sprites/spr_cornerCoil/spr_cornerCoil.yy",},},
+    {"id":{"name":"spr_deassembler_idle","path":"sprites/spr_deassembler_idle/spr_deassembler_idle.yy",},},
+    {"id":{"name":"spr_deassembler_work","path":"sprites/spr_deassembler_work/spr_deassembler_work.yy",},},
+    {"id":{"name":"spr_doublebattery","path":"sprites/spr_doublebattery/spr_doublebattery.yy",},},
+    {"id":{"name":"spr_drone_board","path":"sprites/spr_drone_board/spr_drone_board.yy",},},
+    {"id":{"name":"spr_drone_cover","path":"sprites/spr_drone_cover/spr_drone_cover.yy",},},
+    {"id":{"name":"spr_drone_small","path":"sprites/spr_drone_small/spr_drone_small.yy",},},
+    {"id":{"name":"spr_fastRewind","path":"sprites/spr_fastRewind/spr_fastRewind.yy",},},
+    {"id":{"name":"spr_fire","path":"sprites/spr_fire/spr_fire.yy",},},
+    {"id":{"name":"spr_game_board","path":"sprites/spr_game_board/spr_game_board.yy",},},
+    {"id":{"name":"spr_game_small","path":"sprites/spr_game_small/spr_game_small.yy",},},
+    {"id":{"name":"spr_generator_board","path":"sprites/spr_generator_board/spr_generator_board.yy",},},
+    {"id":{"name":"spr_green_minus","path":"sprites/spr_green_minus/spr_green_minus.yy",},},
+    {"id":{"name":"spr_green_plus","path":"sprites/spr_green_plus/spr_green_plus.yy",},},
+    {"id":{"name":"spr_littleEff","path":"sprites/spr_littleEff/spr_littleEff.yy",},},
+    {"id":{"name":"spr_littleSpeed","path":"sprites/spr_littleSpeed/spr_littleSpeed.yy",},},
+    {"id":{"name":"spr_microwave_board","path":"sprites/spr_microwave_board/spr_microwave_board.yy",},},
+    {"id":{"name":"spr_microwave_cover","path":"sprites/spr_microwave_cover/spr_microwave_cover.yy",},},
+    {"id":{"name":"spr_microwave_small","path":"sprites/spr_microwave_small/spr_microwave_small.yy",},},
+    {"id":{"name":"spr_modifyGenerator","path":"sprites/spr_modifyGenerator/spr_modifyGenerator.yy",},},
+    {"id":{"name":"spr_OFF","path":"sprites/spr_OFF/spr_OFF.yy",},},
+    {"id":{"name":"spr_ON","path":"sprites/spr_ON/spr_ON.yy",},},
+    {"id":{"name":"spr_plate","path":"sprites/spr_plate/spr_plate.yy",},},
+    {"id":{"name":"spr_play","path":"sprites/spr_play/spr_play.yy",},},
+    {"id":{"name":"spr_player_board","path":"sprites/spr_player_board/spr_player_board.yy",},},
+    {"id":{"name":"spr_player_cover","path":"sprites/spr_player_cover/spr_player_cover.yy",},},
+    {"id":{"name":"spr_player_small","path":"sprites/spr_player_small/spr_player_small.yy",},},
+    {"id":{"name":"spr_radio_small","path":"sprites/spr_radio_small/spr_radio_small.yy",},},
+    {"id":{"name":"spr_red_minus","path":"sprites/spr_red_minus/spr_red_minus.yy",},},
+    {"id":{"name":"spr_red_plus","path":"sprites/spr_red_plus/spr_red_plus.yy",},},
+    {"id":{"name":"spr_remote_board","path":"sprites/spr_remote_board/spr_remote_board.yy",},},
+    {"id":{"name":"spr_remote_small","path":"sprites/spr_remote_small/spr_remote_small.yy",},},
+    {"id":{"name":"spr_RMB_Rotate","path":"sprites/spr_RMB_Rotate/spr_RMB_Rotate.yy",},},
+    {"id":{"name":"spr_solider_idle","path":"sprites/spr_solider_idle/spr_solider_idle.yy",},},
+    {"id":{"name":"spr_solider_work","path":"sprites/spr_solider_work/spr_solider_work.yy",},},
+    {"id":{"name":"spr_speed_eff","path":"sprites/spr_speed_eff/spr_speed_eff.yy",},},
+    {"id":{"name":"spr_srapper_idle","path":"sprites/spr_srapper_idle/spr_srapper_idle.yy",},},
+    {"id":{"name":"spr_srapper_work","path":"sprites/spr_srapper_work/spr_srapper_work.yy",},},
+    {"id":{"name":"spr_stabilizator","path":"sprites/spr_stabilizator/spr_stabilizator.yy",},},
+    {"id":{"name":"spr_stat_blue_empty_OLD_1","path":"sprites/spr_stat_blue_empty_OLD_1/spr_stat_blue_empty_OLD_1.yy",},},
+    {"id":{"name":"spr_stat_blue_empty","path":"sprites/spr_stat_blue_empty/spr_stat_blue_empty.yy",},},
+    {"id":{"name":"spr_stat_blue_full_OLD_1","path":"sprites/spr_stat_blue_full_OLD_1/spr_stat_blue_full_OLD_1.yy",},},
+    {"id":{"name":"spr_stat_blue_full","path":"sprites/spr_stat_blue_full/spr_stat_blue_full.yy",},},
+    {"id":{"name":"spr_stat_eff","path":"sprites/spr_stat_eff/spr_stat_eff.yy",},},
+    {"id":{"name":"spr_stat_energy","path":"sprites/spr_stat_energy/spr_stat_energy.yy",},},
+    {"id":{"name":"spr_stat_green_empty_OLD_1","path":"sprites/spr_stat_green_empty_OLD_1/spr_stat_green_empty_OLD_1.yy",},},
+    {"id":{"name":"spr_stat_green_empty","path":"sprites/spr_stat_green_empty/spr_stat_green_empty.yy",},},
+    {"id":{"name":"spr_stat_green_full_OLD_1","path":"sprites/spr_stat_green_full_OLD_1/spr_stat_green_full_OLD_1.yy",},},
+    {"id":{"name":"spr_stat_green_full","path":"sprites/spr_stat_green_full/spr_stat_green_full.yy",},},
+    {"id":{"name":"spr_stat_heat","path":"sprites/spr_stat_heat/spr_stat_heat.yy",},},
+    {"id":{"name":"spr_stat_red_empty_OLD_1","path":"sprites/spr_stat_red_empty_OLD_1/spr_stat_red_empty_OLD_1.yy",},},
+    {"id":{"name":"spr_stat_red_empty","path":"sprites/spr_stat_red_empty/spr_stat_red_empty.yy",},},
+    {"id":{"name":"spr_stat_red_full_OLD_1","path":"sprites/spr_stat_red_full_OLD_1/spr_stat_red_full_OLD_1.yy",},},
+    {"id":{"name":"spr_stat_red_full","path":"sprites/spr_stat_red_full/spr_stat_red_full.yy",},},
+    {"id":{"name":"spr_stat_speed","path":"sprites/spr_stat_speed/spr_stat_speed.yy",},},
+    {"id":{"name":"spr_stat_stability","path":"sprites/spr_stat_stability/spr_stat_stability.yy",},},
+    {"id":{"name":"spr_stat_weight","path":"sprites/spr_stat_weight/spr_stat_weight.yy",},},
+    {"id":{"name":"spr_table","path":"sprites/spr_table/spr_table.yy",},},
+    {"id":{"name":"spr_telephone_board","path":"sprites/spr_telephone_board/spr_telephone_board.yy",},},
+    {"id":{"name":"spr_telephone","path":"sprites/spr_telephone/spr_telephone.yy",},},
+    {"id":{"name":"spr_universal","path":"sprites/spr_universal/spr_universal.yy",},},
+    {"id":{"name":"spr_unstable","path":"sprites/spr_unstable/spr_unstable.yy",},},
   ],
-  "resourceType": "GMProject",
-  "resourceVersion": "2.0",
-  "RoomOrderNodes": [
-    {
-      "roomId": {
-        "name": "Room1",
-        "path": "rooms/Room1/Room1.yy"
-      }
-    }
+  "resourceType":"GMProject",
+  "resourceVersion":"2.0",
+  "RoomOrderNodes":[
+    {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"roomId":{"name":"rm_balance","path":"rooms/rm_balance/rm_balance.yy",},},
+    {"roomId":{"name":"rm_manual","path":"rooms/rm_manual/rm_manual.yy",},},
   ],
-  "templateType": "game",
-  "TextureGroups": [
-    {
-      "$GMTextureGroup": "",
-      "%Name": "Default",
-      "autocrop": true,
-      "border": 2,
-      "compressFormat": "bz2",
-      "customOptions": "",
-      "directory": "",
-      "groupParent": null,
-      "isScaled": true,
-      "loadType": "default",
-      "mipsToGenerate": 0,
-      "name": "Default",
-      "resourceType": "GMTextureGroup",
-      "resourceVersion": "2.0",
-      "targets": -1
-    }
-  ]
+  "templateType":"game",
+  "TextureGroups":[
+    {"$GMTextureGroup":"","%Name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","customOptions":"","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"name":"Default","resourceType":"GMTextureGroup","resourceVersion":"2.0","targets":-1,},
+  ],
 }

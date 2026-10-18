@@ -1,0 +1,16 @@
+2026-10-18 — GameMaker 2026.0.0.23, Windows VM
+Main and isolated test projects compile without errors or warnings.
+TYPED_PORT_RESULT passes=53 failures=0
+PORT_HITBOX_RESULT passes=15 failures=0
+GENERATED_NETWORK_RESULT passes=768 failures=0
+DUAL_PORT_POWER_RESULT passes=38 failures=0
+ORDER_TEST_RESULT passes=197 failures=0
+Total: 1071 passes, 0 failures. All Runner processes exited with code 0.
+
+Checked typed string parsing, invalid cells, legacy enums and untyped strings,
+arbitrary positive type numbers, four rotations, stable wire identities,
+matching types, invalid replacements preserving old wires, manual draft/snap,
+mixed-type module chains, configurable board types and automatic donor wiring.
+Inspected typed-ports-preview.png with orange/cyan contacts and a working chain.
+The isolated copy starts in Room1 and bypasses its window-focus guard.
+The primary project's room order and focus behavior are unchanged.

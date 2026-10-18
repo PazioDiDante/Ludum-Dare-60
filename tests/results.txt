@@ -1,26 +1,251 @@
-PASS: input initially idle
-PASS: first key press
-PASS: second key no duplicate press
-PASS: one key released keeps action down
-PASS: last key releases action
-PASS: release pulse lasts one update
-PASS: rebind held key no phantom press
-PASS: sweep stops at wall without tunneling
-PASS: slide along wall
-PASS: negative horizontal sweep
-PASS: vertical sweep
-PASS: negative vertical sweep
-PASS: interaction blocked by wall
-PASS: nearest interaction found
-PASS: method bound to target
-PASS: disabled interaction excluded
-PASS: paused player does not move
-PASS: normalized diagonal speed
-PASS: last frame retains full duration
-PASS: one shot completes
-PASS: end signal is one tick
-PASS: skipped frame crossing detected
-PASS: loop crossing detected
-PASS: same animation does not reset
-PASS: multiple loops remain detectable
-BASE_TEST_RESULT passes=25 failures=0
+
+***************************************
+ *     GameMaker v2026.0.0.23    *
+***************************************
+Setting scheduler resolution to 1
+Attempting to use high process priority settings
+Set process priority to HIGH_PRIORITY_CLASS
+Set main thread priority to HIGHEST
+Registered with MMCSS 'Games' task
+Set MMCSS thread priority to CRITICAL
+Reading File C:\Users\ADMIN\Documents\ChatGPT\Ludum Dare\mouse-test-build\Base Game.win took 0 ms
+DirectX11: Using hardware device
+Collision Event time(microsecs)=4
+Variable_Global_Init()
+PrepareGame()
+Audio_Init()
+Audio group 0 -> Loaded
+Attempting to set gamepadcount to 12
+Game_Prepare()
+Script_Prepare() 
+TimeLine_Prepare() 
+Object_Prepare() 
+Room_Prepare() 
+Finished PrepareGame() 
+Run_Start
+Done g_EffectsManager.Init()
+Done RenderStateManager
+CreateColPairs took 0.000000s 1 usecs for 16 object types obj_col_numb=0 physobjcount=0 resizes 0 final size 0
+Done ObjectLists
+Done Extension_Initialize
+About to startroom
+Total memory used = 22367992 (0x01554ef8) bytes 21.33MB
+Free memory = 6064072 (0x005c87c8) bytes 5.78MB
+Peak memory used = 22696968 (0x015a5408) bytes 21.65MB
+**********************************.
+Entering main loop.
+**********************************.
+PASS: table starts with permanent order only
+PASS: remote has its four screws
+PASS: RMB leaves screw in place
+PASS: pause blocks screw action
+PASS: three screws keep remote closed
+PASS: last screw generates legal modules
+PASS: opening again does not regenerate
+PASS: factory switch cleans donor and retains order
+PASS: radio has own screws and shaped board
+PASS: seed 0: valid non-overlapping layout
+PASS: seed 1: valid non-overlapping layout
+PASS: seed 2: valid non-overlapping layout
+PASS: different seeds change the layout
+PASS: seed 3: valid non-overlapping layout
+PASS: seed 4: valid non-overlapping layout
+PASS: seed 5: valid non-overlapping layout
+PASS: seed 6: valid non-overlapping layout
+PASS: seed 7: valid non-overlapping layout
+PASS: seed 8: valid non-overlapping layout
+PASS: seed 9: valid non-overlapping layout
+PASS: seed 10: valid non-overlapping layout
+PASS: seed 11: valid non-overlapping layout
+PASS: seed 12: valid non-overlapping layout
+PASS: seed 13: valid non-overlapping layout
+PASS: seed 14: valid non-overlapping layout
+PASS: seed 15: valid non-overlapping layout
+PASS: seed 16: valid non-overlapping layout
+PASS: seed 17: valid non-overlapping layout
+PASS: seed 18: valid non-overlapping layout
+PASS: seed 19: valid non-overlapping layout
+PASS: fixed seed reproduces types and positions
+PASS: invalid move preserves position
+PASS: module selects on its device
+PASS: cancel clears selection
+PASS: sprite transparency and origin produce correct grid
+PASS: partial cells forbidden and sampler removed
+PASS: device build accepts sprite mask and zero screws
+PASS: module cannot cross a hole in sprite-derived board
+PASS: small board enlarged three times
+PASS: module uses scaled grid position
+PASS: module hit test uses scaled size
+PASS: user board sprite maps to sixteen-pixel cells
+PASS: large board fits visible play area
+PASS: impossible layout terminates without stray candidates
+PASS: all child instances cleaned up
+PASS: cannot pick up through a shape hole
+PASS: pickup remembers bottom-right grab offset
+PASS: pickup does not jump to cursor origin
+PASS: preview moves exactly one cell without committing
+PASS: old cells remain reserved during pickup
+PASS: only one module can be held
+PASS: occupied drop rejected and module remains held
+PASS: outside drop rejected
+PASS: preview detects forbidden board cell
+PASS: cancel restores original position and depth
+PASS: next click commits preview
+PASS: drop transfers occupancy
+PASS: pause freezes pickup and blocks drop
+PASS: device cleanup removes held-capable modules
+PASS: RMB rotates held module instead of cancelling
+PASS: quarter turn swaps rectangular dimensions
+PASS: all four port directions rotate clockwise
+PASS: rotation preserves solid cells and holes
+PASS: rotation preserves grabbed cell under cursor
+PASS: rotation preview does not change occupancy
+PASS: four turns restore shape ports and anchor
+PASS: cancel restores pickup orientation and position
+PASS: drop commits rotated shape at anchored position
+PASS: rotated occupancy matches ports and holes
+PASS: later cancel restores last placed orientation
+PASS: pause blocks rotation
+PASS: rotation into another module cannot be placed
+PASS: rotated preview outside board cannot be placed
+PASS: rotation without held module is rejected
+PASS: sprite pixels rotate clockwise and align with grid despite origin
+PASS: Q triggers cancel action
+PASS: held Q plus middle button does not repeat cancel
+PASS: middle mouse triggers cancel action
+PASS: contact hit returns stable port reference
+PASS: port cell body is not a contact
+PASS: module body remains available for pickup
+PASS: first contact click starts wire instead of pickup
+PASS: draft endpoint follows pointer
+PASS: empty second click keeps draft
+PASS: same-module connection rejected
+PASS: pending wire blocks pickup
+PASS: pause blocks wire completion
+PASS: second module contact completes wire
+PASS: connection stored once in device and on both modules
+PASS: module collections identify peer and endpoint
+PASS: completed wire draws between contacts
+PASS: reverse duplicate rejected
+PASS: cancel draft preserves completed wires
+PASS: port identity survives rotation
+PASS: peer reference stays in original coordinates
+PASS: wire endpoint follows picked module
+PASS: cannot start wire while holding module
+PASS: cancel restores connection endpoint
+PASS: occupied target rejects another source
+PASS: occupied source rejects another target
+PASS: distinct free port pair on same modules is allowed
+PASS: pause prevents disconnecting occupied port
+PASS: click occupied port removes old wire and starts draft
+PASS: disconnect removes both records and frees both contacts
+PASS: disconnect preserves another wire between same modules
+PASS: invalid same-module target keeps its existing wire
+PASS: occupied target wire replaced by drawn wire
+PASS: replacement frees old source and updates both connection lists
+PASS: RMB cancels draft without restoring deleted wire
+PASS: freed contacts can reconnect in reverse order
+PASS: either endpoint can disconnect a wire
+PASS: rotated contact remains clickable
+PASS: cross-device connection rejected
+PASS: deleting source clears peers wires and draft
+PASS: deleted endpoint is safely rejected
+PASS: pause prevents replacing an occupied target
+PASS: replacement clears third module and records new peers
+PASS: RMB cancellation wins over simultaneous left click
+PASS: Q or middle-button cancellation still preserves completed wires
+PASS: device cleanup removes connected modules
+PASS: inventory slot boundaries
+PASS: board module stored in one inventory slot
+PASS: storage clears board and both wire endpoints
+PASS: stored module ports are inactive
+PASS: occupied inventory slot rejects second module
+PASS: inventory pickup immediately removes thumbnail
+PASS: cancel restores inventory slot and original rotation
+PASS: inventory module cannot enter a closed device
+PASS: inventory module placed back on board
+PASS: inventory survives device switch
+PASS: device switch returns held inventory module
+PASS: pause prevents inventory drop
+PASS: former sale area does not consume module
+PASS: shape and sprite inventory thumbnails render
+PASS: board contacts hidden before opening
+PASS: two board contacts generated
+PASS: board contacts distinct
+PASS: board contact hit matches drawing
+PASS: contacts on exterior silhouette not inner holes
+PASS: board-to-module wire stores both peers
+PASS: board draft replaces occupied module contact
+PASS: board contact disconnect and RMB cancel
+PASS: module-to-board wire works
+PASS: inventory removes board connection from both peers
+PASS: board port position remains fixed
+PASS: old board contact invalid after device switch
+PASS: sprite board also has two contacts
+PASS: single-cell board has two distinct edge contacts
+PASS: empty board has no invalid contacts
+PASS: initial circuit false without frame checks
+PASS: draft and cancellation do not check graph
+PASS: single board endpoint is not a circuit
+PASS: disconnected modules do not conduct through board owner
+PASS: two-module chain connects board ports
+PASS: rejected connection does not check graph
+PASS: movement rotation and cancel do not check graph
+PASS: removing bridge breaks circuit
+PASS: three-module chain connects board ports
+PASS: cycle without second board endpoint terminates false
+PASS: cycle with path to second endpoint succeeds
+PASS: occupied target replacement checks once after complete edit
+PASS: picking occupied board port immediately breaks circuit
+PASS: cancel removed wire draft does not recheck
+PASS: inventory removes multiple wires with one graph check
+PASS: single module with two ports completes chain
+PASS: deleting connected module clears circuit
+PASS: new device starts with fresh circuit state
+PASS: table replaces device selection menu
+PASS: click outside tabletop device does nothing
+PASS: provided balance demo has six solutions
+PASS: incremental counts match original for current stock
+PASS: simulation includes money button dismantling assembly reward
+PASS: cash shortage buys one device and consumes order modules
+PASS: seed reproducible across different calculation budgets
+PASS: funded run pays entire batch but stops after completed order
+PASS: starting inventory can complete order without drops
+PASS: unavailable module makes order impossible
+PASS: simulation reports cap failures without infinite loop
+PASS: enumeration cap explicitly marks incomplete results
+PASS: zero money reward rejected
+PASS: contradictory stat bounds rejected
+PASS: numeric editor validates malformed input
+PASS: OFF enumeration keeps installed module weight
+PASS: campaign order and saved catalog loaded
+PASS: 50 coins buy exactly two single devices
+PASS: insufficient funds cannot create a device
+PASS: cannot finish unopened workpiece
+PASS: campaign donor yields two or three catalog modules
+PASS: table return preserves generated donor parts
+PASS: empty donor finish removes only that workpiece
+PASS: finish preserves recovered inventory and next device
+PASS: remaining parts require discard confirmation
+PASS: confirmed finish scraps remaining parts
+PASS: earning timer cannot stack
+PASS: earning cannot pay before five seconds
+PASS: earning pays ten once after five seconds
+PASS: pause suspends earning
+PASS: earned coins fund a new device
+PASS: empty unwired order cannot complete
+PASS: order has usable board cells for module 0
+PASS: order has usable board cells for module 1
+PASS: order has usable board cells for module 2
+PASS: order has usable board cells for module 3
+PASS: stats alone cannot replace board circuit
+PASS: connected manifest modules satisfy goal
+PASS: disconnect removes powered stats but preserves mass
+PASS: valid order assembles its cover
+PASS: assembled order cannot complete twice
+PASS: completed order stays covered when reopened
+DEVICE_TEST_RESULT passes=209 failures=0
+###game_end###0
+Attempting to set gamepadcount to 0
+Script_Free called with 251 and global 14
+Unsetting previous scheduler resolution of 1

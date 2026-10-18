@@ -1,0 +1,31 @@
+2026-10-18 — GameMaker 2026.0.0.23, Windows VM
+Main and isolated test projects compile without errors or warnings.
+RECYCLER_RESULT passes=53 failures=0
+POWER_TEST_RESULT passes=18 failures=0
+SHOP_TEST_RESULT passes=7 failures=0
+ROBOT_TEST_RESULT passes=42 failures=0
+MANUAL_UPGRADE_RESULT passes=20 failures=0
+GENERATOR_CONTROL_RESULT passes=29 failures=0
+TABLE_TEST_RESULT passes=12 failures=0
+Total: 181 passes, 0 failures. All seven Runner processes exited with code 0.
+
+Recycler coverage: free starter, 2 energy, portless 3-row/6-column queue,
+actual inventory pickup/drop, row-major input choice, skipping held modules,
+single reservation, 30-second processing, one scrap per part, automatic queue
+advance/refill, outages, pause, allocation release, coin/scrap separation,
+unchanged 100-coin prices and new 1-energy solder/dismantle costs, UI clicks,
+board protection and cleanup of queued/reserved parts.
+Inspected recycler-board-preview.png and recycler-table-preview.png.
+The existing robot capacity suite uses explicit two-energy fixtures to keep
+its insufficient-capacity cases; the real one-energy products are covered
+by the recycler, power and generator-control suites.
+Isolated harness: Room1 first, debug disabled, window-focus guard bypassed.
+Primary room order, debug options and window-focus behavior are unchanged.
+
+Follow-up: removed recycler Play/manual-start UI and recycle_enabled latch.
+The former Play position uses spr_modifyGenerator to open the board, including
+without power and during processing. Powered idle recyclers always scan input.
+Main/isolated compilation passed; RECYCLER 53/53 and ROBOT 42/42 (95 checks),
+both Runner exits 0. Inspected updated recycler-table-preview.png.
+
+2026-10-18: Added repeatable Scrap master purchase (100 coins, 2 energy). Starting and purchased robots share recycler_setup to create independent queue boards. Extended integration suite checks direct/repeated scrolled UI purchases, insufficient funds, initial robot preservation, independent boards, energy blocks, parallel automatic processing and front-robot Modify action. RECYCLER_RESULT passes=75 failures=0; SHOP_TEST_RESULT passes=7 failures=0; ROBOT_ENERGY_RESULT passes=33 failures=0. Three Runner exits 0; main and isolated VM builds clean. Inspected recycler-shop-preview.png showing Owned: 3 and the repeatable Buy button.
