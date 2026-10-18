@@ -8,7 +8,6 @@ module_name = "Module";
 drop_weight = 1;
 scrap_cost = 2; // Scrap to assemble; recycling returns exactly half this value.
 unlock_after_orders = 0; // Number of delivered big orders required for random drops.
-catalog_revision = 1; // One-time lab catalog migration; not a gameplay stat.
 stats = {
     energy: 0,
     weight: 0,
@@ -19,12 +18,9 @@ stats = {
     accuracy: 0,
     wear: 0
 };
-catalog_index = -1;
 removing = false;
 in_inventory = false;
 inventory_origin = -1; // Return slot while picked up from inventory.
-debug_infinite_source = false; // Debug catalog specimen, never removed on pickup.
-debug_inventory_source = noone; // A disposable copy taken from a catalog specimen.
 connections = []; // { module, own_port, other_port } for each connection.
 circuit_powered = false; // Cached by device_stats_update; Draw never walks wires.
 grid_col = 0; grid_row = 0;

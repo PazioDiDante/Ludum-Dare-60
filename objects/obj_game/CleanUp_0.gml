@@ -1,6 +1,7 @@
 
 sfx_screw_stop(id);
 sfx_solder_stop(id);
+if(music_sound!=-1) audio_stop_sound(music_sound);
 game_font_delete(circuit_font);
 
 game_font_delete(ui_font);

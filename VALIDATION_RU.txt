@@ -1,3 +1,42 @@
+2026-10-18 — ФОНОВАЯ МУЗЫКА И КНОПКИ ЗВУКА
+Добавлен исходный ScrapTreasure.wav: 85.333 секунды, stereo, 48000 Hz.
+Музыка запускается в Create obj_game, повторяется и останавливается при CleanUp.
+Две иконки под Buy device отдельно управляют музыкой и игровыми эффектами.
+Музыка ставится на паузу без потери позиции; выключение эффектов сразу
+останавливает текущие эффекты и рабочие петли, сохраняя фоновую музыку.
+Оба переключателя действуют в текущем сеансе.
+
+Основной и изолированный тестовый проекты Windows VM собраны без ошибок
+и предупреждений. GameMaker Runner: AUDIO_CONTROLS_RESULT 17/17,
+AUDIO_RESULT 142/142, ошибок нет. Повтор проверен переходом через конец
+реального трека. Проверены состояния кнопок и их положение на снимках экрана.
+Тест отсутствия фокуса обходится только в изолированной копии scr_audio.
+Результаты: tests/audio_controls_results.txt.
+
+2026-10-18 — ОЧИСТКА РЕЛИЗА
+Основной и изолированный тестовый проекты собраны GMAssetCompiler 2026.0.0.23,
+Windows VM, без ошибок и предупреждений. В проекте одна комната Room1.
+Проверены ссылки на все ресурсы, включаемые файлы и обработчики событий:
+отсутствующих файлов и неиспользуемых именованных функций в игровом коде нет.
+
+GameMaker Runner: 21 набор, 1802 успешные проверки, 0 ошибок.
+Проверены реальные сборки и сдача шести отдельных и двух повторяющихся заказов,
+начальная экономика, стартовые детали, таймер винтов, ручные улучшения,
+инвентарь, продажа ремонта, магазин, питание, переработчик, сборщик,
+адаптеры и их бонусное выпадение, генерируемые цепи, провода, характеристики,
+размещение интерфейса и звук. Подробные результаты: tests/release_results.txt.
+
+Старые сбои тестов адаптеров, сборщика и звука воспроизведены на HEAD до очистки.
+Устаревшие ожидания положения контактов, размеров платы и раскладки роботов
+обновлены под текущие ресурсы. Звуковая проверка в скрытом тестовом окне
+игнорирует отсутствие фокуса только в отдельной тестовой копии.
+Изменения тестового запуска в основной проект не включены.
+Ручной игровой проход и сборки других платформ в этой проверке не выполнялись.
+
+Ниже сохранена история предыдущих проверок. Она описывает старые состояния
+проекта, включая удалённые лаборатории и экспериментальную генерацию заказов.
+Актуальные сведения о релизе приведены выше.
+
 Универсальные устройства — 17 октября 2026.
 Основной проект и отдельная тестовая копия собраны GMAssetCompiler 2026.0.0.23 Windows VM.
 GameMaker Runner: DEVICE_TEST_RESULT passes=40 failures=0, game_end code 0.
@@ -162,3 +201,9 @@ Tier-two lab migration follow-up: old experiments receive missing progression mo
 2026-10-18: Removed ACC/WEAR from visible UI. Assembler recipes now use game_stat_keys/game_stat_icons and display six gameplay stats in a 2x3 grid, removing the text fallback. Balance lab order/module fields and build-stat displays use the same six keys; analysis pressure rows filter visible keys while retaining original model-array indices. Hidden model fields/calculation data remain compatible. Main/isolated HTML5 builds compiled. Chrome/WebGL screenshots inspected: tier-two assembler catalog, lab order, module and analysis screens; no page errors. The fresh browser profile's optional balance_settings.json lookup returned 404 and defaults loaded normally. Debug enabled only in isolated preview fixture; main debug remains off. Updated existing ZIP: 48 files, 865379 bytes, CRC verified. Screenshots/logs: Temp/html5-check/six-stats-* and six-stats-lab-*.png.
 
 2026-10-18: Slower screwdriver pulses (0.60s instead of 0.30s) and one snd_remove_cover cue after every completed manual screw. Moved opening audio from par_device.open_cover into screw_tick, so final screw does not replay it for the lid; hidden/automatic opening stays silent. Extended existing audio checks: AUDIO 142/142, Runner exit 0; main/test VM builds clean. Test startup exposed dangling spr_remote_cover reference after asset deletion, fixed via optional asset_get_index with existing generic-cover fallback. HTML5 compile completed (invariant compiler culture required); standard CLI targetType archive-stage issue handled by separately zipping generated files. Chrome smoke: no page errors/failed requests/console output. Existing ZIP updated: 48 files, 864111 bytes, CRC verified. Main debug remains disabled.
+
+2026-10-18: Added English playtest guidance above donor/order/recycler boards and order requirement bars, plus assembler crafting help. Expanded all robot shop descriptions, replaced conversion > with ->, and enlarged shop rows/page calculation to fit wrapped text. Reserved board header space and reflowed inventory below the order hint. Common campaign_open rejects unpowered robot boards before changing scene; failed opening/starting clicks flash only that robot's no-energy sprite and energy cells for 1.44s, with 0.18s phases, repeat restart and pause freeze. Powered correction clears feedback. Main/isolated VM builds clean; PLAYTEST_HELP 21, ROBOT_ENERGY 33, SHOP 7, RELEASE 130, POWER_HINT 17: 208 assertions, zero failures. After visual shop-spacing fix, PLAYTEST_HELP 21 and SHOP 7 rerun successfully. Inspected board/order/assembler/recycler/shop and flash previews. Existing user sprite warning size retained. Details: tests/playtest_help_results.txt; isolated setup and previews: Temp/playtest-help-check.
+
+2026-10-18: Shortened robot shop descriptions to two lines (conversion/time and energy), restored compact 168px rows, and centralized row/page/footer geometry in shop_layout. Draw, click and wheel paths refresh page size through shop_items; shop_scroll clamps against the same filtered catalog. Added previous/next footer buttons and visible item range so the final item is reachable without the wheel. Extended SHOP tests to scroll to the end through actual buttons, verify final Buy bounds, buy the final robot, return by wheel helper, and repeat the final purchase after owned upgrades disappear. Main/isolated VM builds clean; SHOP 13 and PLAYTEST_HELP 21 assertions pass, Runner exits 0. Inspected last-page previews with fully visible final Buy and navigation controls. Detailed explanations remain in robot work screens.
+
+2026-10-18: Added two-line generator help above its board: generator powers the table robots; adding and wiring modules increases energy. Existing font, layout and mechanics retained. Main/isolated Windows VM builds clean, PLAYTEST_HELP 21 assertions passed; inspected Temp/playtest-help-check/test/help-generator.png with no text/board overlap.

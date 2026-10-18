@@ -1,16 +1,3 @@
-// F7: manual four-stat experiment; preserve the actual game room.
-if (debug_tools && global.mode == GameMode.Menu && keyboard_check_pressed(vk_f7)) {
-    sfx_solder_stop(id);
-    room_persistent=true;pointer_ready=false;room_goto(rm_manual);exit;
-}
-// F6 opens the isolated balance room from the table. Preserve this room/inventory.
-if (debug_tools && global.mode == GameMode.Menu && keyboard_check_pressed(vk_f6)) {
-    sfx_solder_stop(id);
-    room_persistent = true;
-    pointer_ready = false;
-    room_goto(rm_balance);
-    exit;
-}
 input_update();
 global.dt = min(delta_time * 0.000001, 0.05);
 global.hover_target = noone;
@@ -21,11 +8,9 @@ if (!window_has_focus()) {
     exit;
 }
 if (!input_down(Action.Primary) && !input_down(Action.Secondary) && !input_down(Action.Cancel)) pointer_ready = true;
-if (debug_tools && input_pressed(Action.Debug)) global.debug_enabled = !global.debug_enabled;
 screw_tick(id,global.dt);
 // Campaign workpieces cannot be rerolled via restart.
 campaign_tick(id,delta_time*0.000001);
-orders_tick(id);
 generator_tick(id,global.dt);
 robots_tick(id,global.dt);
 if (input_pressed(Action.Pause)) {

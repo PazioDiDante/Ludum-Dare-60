@@ -24,7 +24,7 @@ function robot_tests() {
     // This suite exercises random donors; starter sets have their own coverage.
     for(var i=0;i<array_length(g.table_devices);++i) instance_destroy(g.table_devices[i]);
     g.table_devices=[];g.campaign_devices_created=2;
-    g.debug_tools=false;g.money=400;
+    g.money=400;
     robot_assert(array_length(shop_catalog())==5&&array_length(g.robots)==0,"three robot products and two upgrades, empty fleet");
     robot_assert(!shop_buy(g,"missing")&&g.money==400,"unknown product does not charge");
     robot_assert(shop_buy(g,"solder_robot")&&shop_buy(g,"solder_robot")&&shop_buy(g,"solder_robot")&&shop_buy(g,"dismantle_robot"),"repeatable purchases");

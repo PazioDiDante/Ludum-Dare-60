@@ -19,6 +19,19 @@ function robot_work_sprite(_robot) {
 function robot_table_sprite(_robot) {
     return _robot.working&&_robot.powered?robot_work_sprite(_robot):robot_idle_sprite(_robot);
 }
+// Failed opening/starting clicks point to the exact robot and its energy cells.
+function robot_require_power(_g,_robot) {
+    if(!instance_exists(_robot)) return false;
+    power_update(_g);
+    if(_robot.powered) {
+        _robot.power_hint_remaining=0;_robot.power_hint_elapsed=0;return true;
+    }
+    _robot.power_hint_remaining=1.44;_robot.power_hint_elapsed=0;
+    return false;
+}
+function robot_power_hint_alpha(_robot) {
+    return _robot.power_hint_remaining>0&&(floor(_robot.power_hint_elapsed/0.18) mod 2)==1?0.2:1;
+}
 function robot_animation_tick(_robot,_seconds) {
     if(!_robot.working||!_robot.powered) {_robot.work_frame=0;return;}
     var sprite=robot_work_sprite(_robot);if(!sprite_exists(sprite)) return;
@@ -27,14 +40,7 @@ function robot_animation_tick(_robot,_seconds) {
         frame_rate*=game_get_speed(gamespeed_fps);
     _robot.work_frame=(_robot.work_frame+max(0,_seconds)*frame_rate) mod sprite_get_number(sprite);
 }
-function robots_table_machines(_g) {
-    var result=[];
-    for(var i=0;i<array_length(_g.robots);++i) {
-        var robot=_g.robots[i];
-        if(instance_exists(robot)&&sprite_exists(robot_idle_sprite(robot))) array_push(result,robot);
-    }
-    return result;
-}
+
 function robot_table_group_index(_robot) {
     switch(_robot.product_id) {
         case "recycle_robot":return 0;
@@ -111,7 +117,13 @@ function robots_table_draw(_g) {
             var robot=machines[(first+stack_depth) mod count],sprite=robot_table_sprite(robot);
             if(!robot.powered) shader_set(shd_module_unpowered);
             campaign_sprite(sprite,robot_table_rect(robot,stack_depth),1,0,robot.working&&robot.powered?floor(robot.work_frame):0);
-            if(!robot.powered) shader_reset();
+            if(!robot.powered) {
+                shader_reset();
+                // Keep the warning coloured and centred on the visible robot body.
+                var bounds=robot_table_hit_rect(robot,stack_depth);
+                var cx=floor((bounds[0]+bounds[2])/2),cy=floor((bounds[1]+bounds[3])/2);
+                campaign_sprite(spr_enrgy_off,[cx-48,cy-48,cx+48,cy+48],robot_power_hint_alpha(robot));
+            }
         }
         if(count>1) {
             campaign_button(robot_stack_arrow(group,false),"<");
@@ -148,8 +160,7 @@ function robot_start(_g,_robot) {
     var recycler=_robot.product_id=="recycle_robot";
     if(_robot.product_id=="assembler_robot") return false; // Select an explicit recipe in its panel.
     if(global.mode!=GameMode.Menu&&!(recycler&&global.mode==GameMode.Play)) return false;
-    power_update(_g);
-    if(!_robot.powered) return false;
+    if(!robot_require_power(_g,_robot)) return false;
     if(_robot.product_id=="solder_robot") {
         if(!campaign_plate_available(_g)||_robot.has_plate) return false;
         _g.table_plate=false;_robot.has_plate=true;
@@ -229,6 +240,12 @@ function robots_tick(_g,_seconds) {
     if(global.mode==GameMode.Pause) return;
     for(var i=0;i<array_length(_g.robots);++i) {
         var robot=_g.robots[i];if(!instance_exists(robot)) continue;
+        if(robot.powered) {robot.power_hint_remaining=0;robot.power_hint_elapsed=0;}
+        else if(robot.power_hint_remaining>0) {
+            var seconds=max(0,_seconds);
+            robot.power_hint_elapsed+=seconds;
+            robot.power_hint_remaining=max(0,robot.power_hint_remaining-seconds);
+        }
         if(array_length(robot.outputs)>0) robot_store_outputs(_g,robot);
         if(robot.product_id=="recycle_robot"&&!robot.working&&robot.powered)
             robot_start(_g,robot);
@@ -245,24 +262,7 @@ function robot_card_rect(_slot,_row=0) {
     var top=display_get_gui_height()-(compact?104:112)-_row*(compact?48:56);
     return [16+_slot*144,top,152+_slot*144,top+(compact?46:48)];
 }
-function robot_job_rect(_slot,_row=0) {
-    var g=instance_find(obj_game,0);
-    if(instance_exists(g)) {
-        var groups=robot_groups(g);
-        if(_row>=0&&_row<array_length(groups)) return robot_row_layout(groups[_row],_row).job;
-    }
-    var r=robot_card_rect(_slot,_row);return [r[0]+96,r[1]+4,r[2]-4,r[1]+40];
-}
-function robot_display_rect(_slot,_row,_robot) {
-    var g=instance_find(obj_game,0);
-    if(instance_exists(g)) {
-        var groups=robot_groups(g);
-        if(_row>=0&&_row<array_length(groups)) return robot_row_layout(groups[_row],_row).card;
-    }
-    var r=robot_card_rect(_slot,_row);
-    if(_robot.product_id=="recycle_robot") r[2]+=56;
-    return r;
-}
+
 function robot_groups(_g) {
     var types=["recycle_robot","assembler_robot","solder_robot","dismantle_robot"],groups=[];
     for(var type_index=0;type_index<array_length(types);++type_index) {
@@ -340,7 +340,7 @@ function robots_draw(_g) {
             var block=layout.energy[i],energy_robot=block.robot;
             for(var cell=0;cell<energy_robot.energy_cost;++cell) {
                 var left=block.rect[0]+cell*layout.cell_width;
-                campaign_sprite(energy_robot.powered?spr_stat_blue_full:spr_stat_blue_empty,[left,block.rect[1],left+layout.cell_width,block.rect[3]]);
+                campaign_sprite(energy_robot.powered?spr_stat_blue_full:spr_stat_blue_empty,[left,block.rect[1],left+layout.cell_width,block.rect[3]],robot_power_hint_alpha(energy_robot));
             }
             if(count>1&&block.index==first) {
                 draw_set_color(make_color_rgb(125,155,175));
@@ -350,7 +350,7 @@ function robots_draw(_g) {
         }
         var assembler=robot.product_id=="assembler_robot",solder=robot.product_id=="solder_robot",blocked=array_length(robot.outputs)>0;
         var has_input=recycler?instance_exists(recycler_first_module(robot)):(solder?campaign_plate_available(_g):array_length(_g.table_devices)>0);
-        var enabled=recycler||assembler||(robot.powered&&!robot.working&&!blocked&&has_input);
+        var enabled=robot.powered&&(recycler||assembler||(!robot.working&&!blocked&&has_input));
         draw_set_alpha((solder&&robot.has_plate)||enabled?1:0.3);
         campaign_sprite(solder&&robot.has_plate?spr_plate:((recycler||assembler)?spr_modifyGenerator:spr_play),[layout.job[0]+4,r[1]+8,layout.job[0]+28,r[1]+32]);
         draw_set_alpha(1);

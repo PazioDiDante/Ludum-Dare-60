@@ -129,12 +129,7 @@ function generator_layout(_g) {
 function generator_table_rect() {
     return generator_layout(instance_find(obj_game,0)).open;
 }
-function generator_restart_rect() {
-    return generator_layout(instance_find(obj_game,0)).control;
-}
-function generator_energy_rect() {
-    return generator_layout(instance_find(obj_game,0)).panel;
-}
+
 function generator_state_sprite(_gen) {
     if(!_gen.running&&_gen.power_hint=="start"&&_gen.power_hint_remaining>0)
         return generator_power_hint_flash(_gen)?spr_broke:spr_OFF;

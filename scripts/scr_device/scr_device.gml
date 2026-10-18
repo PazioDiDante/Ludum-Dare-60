@@ -32,7 +32,6 @@ function screw_tick(_g,_seconds) {
 
 // Called in the child device's Create, AFTER its configuration.
 function device_build() {
-    if(variable_instance_exists(id,"balance_probe") && balance_probe) return;
     if (built) return;
     built = true;
     if (sprite_exists(board_mask_sprite)) board_shape = board_shape_from_sprite(board_mask_sprite,source_cell_size);
@@ -44,7 +43,8 @@ function device_build() {
     if(work_layout) {
         var left=floor(room_width/3)+24,right=room_width-24;
         fit_x=max(1,2*min(x+board_offset[0]-left,right-x-board_offset[0]));
-        fit_y=max(1,2*min(y+board_offset[1]-80,room_height-48-y-board_offset[1]));
+        var top=is_generator?80:160; // Leave room for the instructions above the board.
+        fit_y=max(1,2*min(y+board_offset[1]-top,room_height-48-y-board_offset[1]));
     }
     var fit = min(fit_x/(cols*source_cell_size),fit_y/(rows*source_cell_size));
     // Prefer whole-pixel scaling. Extremely large boards may require downscaling.
@@ -96,7 +96,6 @@ function board_shape_from_sprite(_sprite,_size) {
 function device_generate_modules() {
     if(is_order) return;
     if(campaign) {campaign_loot(id);return;}
-    if (layout_seed >= 0) random_set_seed(layout_seed);
     requested_modules = irandom_range(module_min,module_max);
     placed_modules = 0;
     repeat (requested_modules) {

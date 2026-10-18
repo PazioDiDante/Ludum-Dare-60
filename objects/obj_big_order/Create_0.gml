@@ -5,7 +5,7 @@ board_mask_sprite=spr_drone_board;board_sprite=spr_drone_board;cover_sprite=spr_
 module_min=0;module_max=0;screw_positions=[];
 stats_base={energy:0,heat:0,stability:0,weight:0};
 stats_min={energy:5,stability:0};stats_max={energy:10,heat:4,weight:12};
-order_reward=150;order_generation={fallback:true};
+order_reward=150;
 if(variable_instance_exists(id,"order_definition")) orders_apply(id,order_definition);
 device_build();
 device_stats_update(id);

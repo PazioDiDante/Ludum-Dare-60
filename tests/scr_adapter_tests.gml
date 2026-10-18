@@ -9,16 +9,17 @@ function adapter_ports(_module) {
         var directions=cell_directions(_module.shape[row][col]);
         for(var i=0;i<array_length(directions);++i) array_push(out,port_reference(_module,col,row,directions[i]));
     }
+    array_sort(out,function(_a,_b){return _a.port_type-_b.port_type;});
     return out;
 }
 function adapter_tests() {
     global.adapter_passes=0;
-    var g=instance_find(obj_game,0),types=[obj_module_adapter,obj_module_adapter_corner],keys=bal_keys();
+    var g=instance_find(obj_game,0),types=[obj_module_adapter,obj_module_adapter_corner],keys=device_stat_keys();
     var original_index=g.order_index,pool=g.module_types;
     for(var t=0;t<2;++t) {
         var probe=instance_create_depth(-10000,-10000,0,types[t]);
         adapter_assert(probe.drop_weight==0&&probe.unlock_after_orders==3,"bonus-only adapter unlocked at tier two");
-        for(var k=0;k<array_length(keys);++k) adapter_assert(bal_stat(probe.stats,keys[k])==0,"every adapter stat including mass is zero");
+        for(var k=0;k<array_length(keys);++k) adapter_assert(device_stat_value(probe.stats,keys[k])==0,"every adapter stat including mass is zero");
         var ports=adapter_ports(probe);
         adapter_assert(array_length(ports)==2&&ports[0].port_type==1&&ports[1].port_type==2,"exactly two distinct-type contacts");
         var rotated=probe.shape;
@@ -55,22 +56,23 @@ function adapter_tests() {
     var d=g.generator;campaign_open(g,d);
     var a=instance_create_depth(0,0,-10,types[0]),b=instance_create_depth(0,0,-10,types[1]);
     a.device=d;b.device=d;array_push(d.children,a);array_push(d.children,b);
-    adapter_assert(board_place(a,1,1)&&board_place(b,5,2),"both adapter shapes fit actual board");
+    var parts=[a,b];
+    for(var i=0;i<array_length(parts);++i) {
+        var item=parts[i],placed=false;
+        for(var turn=0;turn<4&&!placed;++turn) {
+            for(var row=0;row<d.rows&&!placed;++row) for(var col=0;col<d.cols&&!placed;++col)
+                placed=board_place(item,col,row);
+            if(!placed) {item.shape=orders_rotate(item.shape);item.rotation_steps=(item.rotation_steps+1) mod 4;}
+        }
+        adapter_assert(placed,"adapter fits the current generator board");
+    }
     var ap=adapter_ports(a),bp=adapter_ports(b),source=board_port_reference(d,0),target=board_port_reference(d,1);
     adapter_assert(!wire_connect(d,ap[1],bp[0])&&array_length(d.wires)==0,"different socket types cannot connect directly");
     adapter_assert(wire_connect(d,source,ap[0])&&wire_connect(d,ap[1],bp[1])&&wire_connect(d,bp[0],target),"actual adapter chain bridges both types");
     adapter_assert(d.circuit_connected&&a.circuit_powered&&b.circuit_powered,"power passes through mixed-type adapter internals");
-    for(var k=0;k<array_length(keys);++k) adapter_assert(bal_stat(d.current_stats,keys[k])==bal_stat(d.stats_base,keys[k]),"connected adapters have no stat effect");
+    for(var k=0;k<array_length(keys);++k) adapter_assert(device_stat_value(d.current_stats,keys[k])==device_stat_value(d.stats_base,keys[k]),"connected adapters have no stat effect");
     module_detach(a);instance_destroy(a);
     adapter_assert(!d.circuit_connected&&array_length(d.wires)==1,"removing adapter breaks chain and cleans its wires");
     module_detach(b);instance_destroy(b);campaign_table(g);
-    var cfg=lab_defaults();lab_sync_game(cfg);
-    adapter_assert(array_length(cfg.modules)==16,"fresh lab catalog includes both adapters");
-    array_resize(cfg.modules,14);cfg.tier2_catalog_added=true;cfg.modules[0].stats.energy="99";cfg.min.speed="4";
-    lab_add_progression_modules(cfg);
-    adapter_assert(array_length(cfg.modules)==16&&cfg.modules[0].stats.energy=="99"&&cfg.min.speed=="4","existing tier-two save gains adapters without resetting tuning");
-    adapter_assert(lab_number(cfg.modules[14].drop_weight)==0&&lab_number(cfg.modules[15].drop_weight)==0&&cfg.modules[14].adapter_bonus,"lab keeps bonus adapters outside weighted drops");
-    array_resize(cfg.modules,15);lab_add_progression_modules(cfg);
-    adapter_assert(array_length(cfg.modules)==15,"later intentional experiment deletion stays deleted");
     show_debug_message("ADAPTER_TEST_RESULT passes="+string(global.adapter_passes)+" failures=0");
 }

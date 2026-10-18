@@ -1,9 +1,0 @@
-AUDIO_RESULT passes=139 failures=0
-Windows Runner exit=0; no runtime warnings/errors.
-Main/test compile: no errors, warnings or audio conversion failures.
-Screwdriver pulses: interval 0.30s, pitch 0.90..1.10.
-Click pitch 0.94..1.06; module pitch 0.92..1.08.
-Actual pitch variation, interval/pause and gameplay RNG isolation verified.
-Previous audio lifecycle/readiness/robot/payout checks retained; no manual listening pass.
-
-2026-10-18: Screwdriver pulse interval increased from 0.30s to 0.60s. snd_remove_cover now plays on each successful manual screw completion, including nonfinal screws; removed the separate open_cover sound hook so the last screw has only the completion cue. Existing audio suite now checks no repeat after 0.31s and an opening cue after each completed screw. AUDIO_RESULT passes=142 failures=0, Runner exit 0. Main/isolated VM builds clean; HTML5 compilation succeeded and Chrome smoke reported no page errors, failed requests or console messages. Fixed an incidental startup crash: obj_remote referenced deleted spr_remote_cover; optional asset lookup now falls back to existing generic lid rendering. Updated ZIP: 48 files, 864111 bytes, CRC verified. No manual listening pass.

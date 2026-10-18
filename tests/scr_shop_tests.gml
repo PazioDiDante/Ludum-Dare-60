@@ -1,7 +1,7 @@
 // Run only in an isolated project copy, after obj_game initialization.
 function shop_tests() {
     var g=instance_find(obj_game,0),passed=0;
-    g.debug_tools=false;g.money=100;g.purchases={};shop_apply(g);
+    g.money=100;g.purchases={};shop_apply(g);
     if(shop_buy(g,"missing") || g.money!=100) throw "Unknown product charged money";
     passed++;
     if(!shop_buy(g,"solder_robot") || g.money!=0 || shop_count(g,"solder_robot")!=1) throw "Purchase failed";
@@ -27,9 +27,31 @@ function shop_tests() {
     if(!shop_click(s,r[0]+2,r[1]+2)) throw "Panel did not consume click";
     if(!shop_click(s,10,100) || s.open) throw "Outside click did not dismiss";
     passed++;
-    s.open=true;g.money=40;s.page_size=3;
+    s.open=true;g.money=1000;s.scroll=0;
+    var items=shop_items(s),next=shop_scroll_button(true);
+    repeat(20) shop_click(s,next[0]+8,next[1]+8);
+    if(s.scroll!=array_length(items)-s.page_size) throw "Next button cannot reach final shop page";
+    passed++;
+    var last=array_length(items)-1,button=shop_row_button(last,s.scroll);
+    if(button[1]<shop_layout().top||button[3]>shop_layout().footer) throw "Final purchase button is outside the visible list";
+    passed++;
+    var before=shop_count(g,items[last].id),money_before=g.money;
+    shop_click(s,button[0]+8,button[1]+8);
+    if(shop_count(g,items[last].id)!=before+1||g.money!=money_before-items[last].price) throw "Cannot buy last product through its visible button";
+    passed++;
+    shop_scroll(s,-100);
+    if(s.scroll!=0) throw "Wheel scroll cannot return to first product";
+    passed++;
+    shop_buy(g,"fast_manual_income");shop_buy(g,"fast_unscrew");
+    shop_scroll(s,100);items=shop_items(s);last=array_length(items)-1;button=shop_row_button(last,s.scroll);
+    if(array_length(items)!=4||s.scroll!=max(0,4-s.page_size)||button[3]>shop_layout().footer) throw "Filtered list hides final product";
+    passed++;
+    before=shop_count(g,items[last].id);
+    shop_click(s,button[0]+8,button[1]+8);
+    if(shop_count(g,items[last].id)!=before+1) throw "Final product is not purchasable after upgrades disappear";
+    passed++;
     var surf=surface_create(1280,720);surface_set_target(surf);draw_clear(c_black);
-    campaign_gui_draw(g);shop_draw(s);surface_reset_target();surface_save(surf,"shop-preview.png");surface_free(surf);
+    campaign_gui_draw(g);shop_draw(s);surface_reset_target();surface_save(surf,environment_get_variable("FIRST_ORDERS_OUTPUT")+"/shop-preview.png");surface_free(surf);
     show_debug_message("SHOP_TEST_RESULT passes="+string(passed)+" failures=0");
     game_end();
 }

@@ -1,0 +1,16 @@
+2026-10-18
+Windows VM: main and isolated project compiled with no errors or warnings.
+PLAYTEST_HELP 21, ROBOT_ENERGY 33, SHOP 7, RELEASE 130, POWER_HINT 17.
+208 assertions passed; no failures; all five Runner exits 0.
+After shop spacing fix: PLAYTEST_HELP 21 and SHOP 7 rerun, no failures.
+
+Verified unpowered assembler/recycler opening is rejected through the common
+opening path, table robot and control-row button; scene and allocations stay
+intact. Only the clicked robot flashes, repeat clicks reset the phase, pause
+freezes the timer, feedback expires, restored power allows opening. Generator
+outages and stale powered flags cannot bypass the guard.
+
+Inspected donor, six order layouts, recycler, assembler, shop robot cards,
+and dim/bright no-power previews under Temp/playtest-help-check/test.
+Shop page count now uses the expanded 280px rows; descriptions clear controls.
+Tests are registered only in the isolated project; normal release stays clean.

@@ -30,9 +30,9 @@ function wire_visual_tests() {
     wire_click(d,p);var preview_color=d.wire_draft.color;wire_click(d,q);
     var wire=d.wires[0];
     wire_visual_assert(wire.visual.color==preview_color&&is_undefined(d.wire_draft),"attachment keeps preview colour and clears draft");
-    var checks=d.circuit_check_count;
+    var checks=json_stringify(d.current_stats),connected=d.circuit_connected;
     wire_visual_update(d,2);
-    wire_visual_assert(wire.visual.quiet_time==2&&d.circuit_check_count==checks,"settling never recomputes circuit");
+    wire_visual_assert(wire.visual.quiet_time==2&&json_stringify(d.current_stats)==checks&&d.circuit_connected==connected,"settling never recomputes circuit");
     left.x+=24;wire_visual_update(d,0.01);
     wire_visual_assert(wire.visual.quiet_time==0,"actual module motion triggers sway");
     global.mode=GameMode.Pause;var state=json_stringify(wire.visual);wire_visual_update(d,1);

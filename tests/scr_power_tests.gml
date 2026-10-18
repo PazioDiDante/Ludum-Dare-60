@@ -6,7 +6,7 @@ function power_test_assert(_value,_message) {
 function power_tests() {
     global.power_test_passes=0;
     var g=instance_find(obj_game,0),gen=g.generator;
-    g.debug_tools=false;
+
     power_test_assert(instance_exists(gen)&&gen.cover_open&&gen.running,"generator starts available");
     power_test_assert(gen.installed_count==0&&gen.current_stats.energy==2,"built-in core, no free modules");
     g.money=200;shop_buy(g,"solder_robot");shop_buy(g,"solder_robot");

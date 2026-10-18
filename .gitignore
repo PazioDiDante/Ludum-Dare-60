@@ -77,3 +77,6 @@ Build
 *.p12
 *.keystore
 
+
+# Obsolete local compiler output
+/$b/

@@ -1,6 +1,0 @@
-Main and isolated test builds: GMAssetCompiler 2026.0.0.23 Windows VM; no errors/warnings.
-ADAPTER_BONUS_RESULT passes=44 failures=0 sample=500 hits=177 straight=88 corner=89
-ADAPTER_TEST_RESULT passes=54 failures=0
-TYPED_PORT_RESULT passes=53 failures=0
-BONUS_REGRESSION_DONE
-###game_end###0

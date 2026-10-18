@@ -49,11 +49,5 @@ function currency_ui_tests() {
     g.shop.open=true;g.shop.scroll=2;currency_capture(g,"currency-shop");g.shop.open=false;
     campaign_open(g,g.recycler_robot.board_device);currency_capture(g,"currency-recycler");campaign_table(g);
     campaign_open(g,g.order_device);currency_capture(g,"currency-order");campaign_table(g);
-    var lab=instance_create_depth(0,0,0,obj_balance_lab);lab.tab=2;lab_rebuild(lab);
-    sf=surface_create(1280,720);surface_set_target(sf);lab_ui_draw(lab);surface_reset_target();
-    surface_save(sf,environment_get_variable("CURRENCY_TEST_OUTPUT")+"/currency-balance-lab.png");surface_free(sf);instance_destroy(lab);
-    var manual=instance_create_depth(0,0,0,obj_manual_lab);manual.tab=1;manual_rebuild(manual);
-    sf=surface_create(1280,720);surface_set_target(sf);manual_draw(manual);surface_reset_target();
-    surface_save(sf,environment_get_variable("CURRENCY_TEST_OUTPUT")+"/currency-manual-lab.png");surface_free(sf);instance_destroy(manual);
     show_debug_message("CURRENCY_UI_RESULT passes="+string(global.currency_passes)+" failures=0");game_end();
 }

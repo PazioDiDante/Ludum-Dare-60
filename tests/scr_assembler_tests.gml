@@ -104,7 +104,12 @@ function assembler_tests() {
     var doomed=second.target_module,screen=second.board_device;instance_destroy(second);
     assembler_assert(!instance_exists(doomed)&&!instance_exists(screen)&&instance_exists(big),"cleanup owns unfinished output and screen, preserves inventory");
     campaign_table(g);g.money=200;shop_buy(g,"solder_robot");shop_buy(g,"dismantle_robot");
-    assembler_assert(robot_card_rect(0,3)[1]>=campaign_item_rect(5)[3],"all four robot rows fit below donor grid");
+    var stacks=robots_table_stacks(g);
+    for(var group=0;group<4;++group) {
+        assembler_assert(array_length(stacks[group])>0,"all four robot types appear on table");
+        var bounds=robot_table_hit_rect(stacks[group][0]);
+        assembler_assert(bounds[1]>=472&&bounds[3]<=room_height-48,"robot stack fits its current table column");
+    }
     assembler_test_capture(g,"assembler-table-preview");
     show_debug_message("ASSEMBLER_RESULT passes="+string(global.assembler_passes)+" failures=0");game_end();
 }

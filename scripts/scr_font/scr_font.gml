@@ -21,8 +21,6 @@ function game_font_delete(_font) {
 
 // Restore the game's font after drawing, instead of GameMaker's built-in font.
 function game_font_default() {
-    if(instance_exists(obj_manual_lab)) return obj_manual_lab.font;
-    if(instance_exists(obj_balance_lab)) return obj_balance_lab.font;
     if(instance_exists(obj_game)) return obj_game.ui_font;
     return -1;
 }
@@ -42,16 +40,6 @@ function ui_text_runs(_text) {
     }
     if(word!="") array_push(runs,{text:word,sprite:-1});
     return runs;
-}
-function ui_text_width(_text) {
-    if(string_pos("{coin}",_text)==0&&string_pos("{scrap}",_text)==0) return string_width(_text);
-    var runs=ui_text_runs(_text),size=max(16,string_height("M")),width=0,widest=0;
-    for(var i=0;i<array_length(runs);++i) {
-        var run=runs[i];
-        if(run.text=="\n") {widest=max(widest,width);width=0;}
-        else width+=run.sprite>=0?size:string_width(run.text);
-    }
-    return max(widest,width);
 }
 function ui_text(_x,_y,_text) {ui_text_ext(_x,_y,_text,-1,-1);}
 function ui_text_ext(_x,_y,_text,_sep,_width) {

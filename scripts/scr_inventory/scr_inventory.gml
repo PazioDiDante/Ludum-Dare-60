@@ -1,23 +1,5 @@
 // Inventory is a list of instances; storage coordinates describe their occupied cells.
-function inventory_debug_seed(_g) {
-    if(!_g.debug_tools) return;
-    var types=game_module_types();
-    for(var t=0;t<array_length(types);++t) {
-        var found=false;
-        for(var i=0;i<array_length(_g.inventory);++i) {
-            var item=_g.inventory[i];
-            if(instance_exists(item)&&item.debug_infinite_source&&item.object_index==types[t]) {found=true;break;}
-        }
-        if(found) continue;
-        var source=instance_create_depth(0,0,-10,types[t]);source.debug_infinite_source=true;
-        if(!inventory_add(_g,source)) instance_destroy(source);
-    }
-}
-function inventory_debug_discard(_device) {
-    var item=_device.selected_module;
-    if(!instance_exists(item)||!instance_exists(item.debug_inventory_source)) return false;
-    _device.selected_module=noone;module_detach(item);instance_destroy(item);return true;
-}
+
 function inventory_inside(_g,_x,_y) {
     return _x>=_g.inventory_x && _y>=_g.inventory_y && _x<_g.inventory_x+_g.inventory_cols*_g.inventory_size && _y<_g.inventory_y+_g.inventory_rows*_g.inventory_size;
 }
@@ -82,10 +64,7 @@ function inventory_pick(_game,_slot,_px,_py) {
     if(!instance_exists(device)||device.completed||!device.cover_open||instance_exists(device.selected_module)||!is_undefined(device.wire_start)||!instance_exists(item)) return false;
     var grab_col=floor((_px-_game.inventory_x)/_game.inventory_size)-item.storage_col;
     var grab_row=floor((_py-_game.inventory_y)/_game.inventory_size)-item.storage_row;
-    if(_game.debug_tools&&item.debug_infinite_source) {
-        var source=item;item=instance_create_depth(0,0,-10,source.object_index);
-        item.debug_inventory_source=source;
-    } else _game.inventory[_slot]=noone;
+    _game.inventory[_slot]=noone;
     item.grab_col=grab_col;item.grab_row=grab_row;item.inventory_origin=_slot;
     item.in_inventory=false;item.visible=true;item.device=device;
     item.rest_shape=item.shape;item.rest_rotation=item.rotation_steps;item.rest_depth=-10;item.depth=-100;
@@ -94,7 +73,6 @@ function inventory_pick(_game,_slot,_px,_py) {
 }
 function inventory_return(_device) {
     var item=_device.selected_module;if(!instance_exists(item)||item.inventory_origin<0) return false;
-    if(inventory_debug_discard(_device)) return true;
     item.shape=item.rest_shape;item.rotation_steps=item.rest_rotation;
     obj_game.inventory[item.inventory_origin]=item;
     item.inventory_origin=-1;item.in_inventory=true;item.visible=false;item.storage_preview=false;
@@ -103,7 +81,6 @@ function inventory_return(_device) {
 function storage_drop(_game,_px,_py) {
     if(!game_running()||!instance_exists(_game.active_device)||!inventory_inside(_game,_px,_py)) return false;
     var d=_game.active_device,item=d.selected_module;if(!instance_exists(item)) return false;
-    if(inventory_debug_discard(d)) return true;
     var c=floor((_px-_game.inventory_x)/_game.inventory_size)-item.grab_col;
     var r=floor((_py-_game.inventory_y)/_game.inventory_size)-item.grab_row;
     if(!inventory_can_place(_game,item,c,r,_game.inventory_page)) return false;

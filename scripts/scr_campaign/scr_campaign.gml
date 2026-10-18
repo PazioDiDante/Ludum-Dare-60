@@ -1,4 +1,4 @@
-	// Single module list for gameplay and analysis. Add new par_module children here.
+// Module catalog for gameplay. Add new par_module children here.
 function game_module_types() {
     return [
     obj_module_battery,
@@ -20,7 +20,7 @@ function game_module_types() {
 ];
 }
 
-// Keep the four-stat manual sandbox independent of active gameplay characteristics.
+// Visible gameplay characteristics and their icons.
 function game_stat_keys() {return ["energy","weight","heat","stability","speed","efficiency"];}
 function game_stat_icons() {return [spr_stat_energy,spr_stat_weight,spr_stat_heat,spr_stat_stability,spr_stat_speed,spr_stat_eff];}
 function game_stat_icon(_icon,_x,_y) {
@@ -29,23 +29,11 @@ function game_stat_icon(_icon,_x,_y) {
 
 // Shared layout for all workpieces; the left third belongs to UI.
 function campaign_create_device(_type) {
+    var top=_type==obj_generator?80:160;
     return instance_create_depth(floor(room_width/3)+(room_width-floor(room_width/3))/2,
-        (80+room_height-48)/2,0,_type,{work_layout:true});
+        (top+room_height-48)/2,0,_type,{work_layout:true});
 }
-// Session economy and persistent workpieces. Values requested for the prototype.
-function campaign_load() {
-    var names=["manual_modules.json","campaign_catalog.json"];
-    for(var i=0;i<array_length(names);++i) {
-        if(!file_exists(names[i])) continue;
-        try {
-            var f=file_text_open_read(names[i]),data="";
-            while(!file_text_eof(f)) {data+=file_text_read_string(f);file_text_readln(f);}file_text_close(f);
-            var model=manual_validate(json_parse(data));
-            if(model.ok) return model;
-        } catch(err) {}
-    }
-    return undefined;
-}
+
 function campaign_visible(_device,_visible) {
     if(!instance_exists(_device)) return;
     _device.visible=_visible;_device.interaction_enabled=_visible && !_device.completed;
@@ -65,9 +53,10 @@ function campaign_table(_g) {
 }
 function campaign_open(_g,_device) {
     if(!instance_exists(_device)) return false;
+    if((_device.is_assembler||_device.is_recycler)&&!robot_require_power(_g,_device.robot_owner)) return false;
     if(_device.is_generator && (_device.broken || _device.repair_remaining>0)) return false;
     if(instance_exists(_device.automation_owner)) return false;
-    campaign_table(_g);_g.active_device=_device;_g.active_type=_device.object_index;
+    campaign_table(_g);_g.active_device=_device;
     if(_device.is_generator) generator_stop(_g,"Stopped to edit the board");
     campaign_visible(_device,true);global.mode=GameMode.Play;
     device_stats_update(_device);
@@ -119,23 +108,7 @@ function campaign_order_rect() {
     var row=campaign_item_rect(0),size=campaign_table_item_size();
     return [852,row[1],852+size,row[1]+size];
 }
-// DEBUG: remove all screws instantly, including the one being unscrewed manually.
-function campaign_debug_unscrew(_g) {
-    if(!_g.debug_tools || global.mode!=GameMode.Play) return false;
-    var d=_g.active_device;
-    if(!instance_exists(d) || d.cover_open || d.completed) return false;
-    screw_cancel(_g);
-    for(var i=array_length(d.children)-1;i>=0;--i) {
-        var child=d.children[i];
-        if(instance_exists(child) && child.object_index==obj_screw) {
-            instance_destroy(child);
-            array_delete(d.children,i,1);
-        }
-    }
-    d.remaining=0;
-    d.open_cover();
-    return true;
-}
+
 function campaign_tick(_g,_seconds) {
     if(global.mode==GameMode.Pause || _g.earn_remaining<=0) return;
     if(!_g.table_plate) {_g.earn_remaining=0;return;}
@@ -247,10 +220,9 @@ function campaign_place_loot(_device,_type,_random_position,_allow_rotation=fals
 }
 function device_stats_update(_d) {
     if(!instance_exists(_d)) return;
-    if(variable_instance_exists(_d,"balance_probe") && _d.balance_probe) return;
-    var model={base:_d.stats_base,min:_d.stats_min,max:_d.stats_max},keys=bal_keys();
+    var model={base:_d.stats_base,min:_d.stats_min,max:_d.stats_max},keys=device_stat_keys();
     _d.current_stats={};_d.installed_count=0;_d.powered_count=0;
-    for(var k=0;k<array_length(keys);++k) struct_set(_d.current_stats,keys[k],bal_stat(model.base,keys[k]));
+    for(var k=0;k<array_length(keys);++k) struct_set(_d.current_stats,keys[k],device_stat_value(model.base,keys[k]));
     var connected=[];
     // Either board contact powers its attached branch before the circuit closes.
     // Seed both ends, counting modules shared by those branches only once.
@@ -278,7 +250,7 @@ function device_stats_update(_d) {
         item.circuit_powered=powered;
         if(powered) _d.powered_count++;
         for(var k=0;k<array_length(keys);++k) if(keys[k]=="weight"||powered)
-            struct_set(_d.current_stats,keys[k],struct_get(_d.current_stats,keys[k])+bal_stat(item.stats,keys[k]));
+            struct_set(_d.current_stats,keys[k],struct_get(_d.current_stats,keys[k])+device_stat_value(item.stats,keys[k]));
     }
     _d.requirements_met=_d.circuit_connected;
     for(var k=0;k<array_length(keys);++k) {
@@ -297,7 +269,7 @@ function campaign_complete(_g) {
     campaign_advance_order(_g);
     return true;
 }
-function campaign_advance_order(_g,_open_next=false) {
+function campaign_advance_order(_g) {
     var d=_g.order_device;
     campaign_table(_g);
     _g.order_device=noone;
@@ -306,15 +278,8 @@ function campaign_advance_order(_g,_open_next=false) {
     _g.order_device=orders_create(_g);
     campaign_visible(_g.order_device,false); // Next order waits on the table.
     if(_g.order_index==3) notice_show("Tier 2 unlocked: speed and efficiency modules. Big orders pay 300 {coin}.");
-    if(_open_next) campaign_open(_g,_g.order_device);
 }
-function campaign_debug_skip_order(_g) {
-    if(!_g.debug_tools||global.mode!=GameMode.Play||!instance_exists(_g.active_device)) return false;
-    if(_g.active_device!=_g.order_device||!_g.active_device.is_order||_g.active_device.completed) return false;
-    campaign_advance_order(_g,true);
-    return true;
-}
-function campaign_skip_rect(_g) {return [_g.sidebar_width+448,16,_g.sidebar_width+616,50];}
+
 function campaign_hit(_x,_y,_r) {return _x>=_r[0]&&_x<_r[2]&&_y>=_r[1]&&_y<_r[3];}
 function campaign_item_rect(_slot) {
     var size=campaign_table_item_size(),left=216+(_slot mod 3)*(size+16),top=128+(_slot div 3)*(size+8);
@@ -341,17 +306,15 @@ function campaign_inventory_page(_g,_delta) {
 }
 function campaign_gui_click(_g,_x,_y) {
     if(global.mode==GameMode.Menu) {
+        if(audio_controls_click(_g,_x,_y)) return true;
         if(generator_click(_g,_x,_y)) return true;
         if(campaign_hit(_x,_y,[24,20,240,58])) {sfx_action(campaign_buy(_g));return true;}
-        if(campaign_hit(_x,_y,[255,20,475,58])) {sfx_action(campaign_earn(_g));return true;}
+        if(campaign_hit(_x,_y,[255,20,495,58])) {sfx_action(campaign_earn(_g));return true;}
     }
     if(global.mode==GameMode.Play) {
         if(instance_exists(_g.active_device)&&_g.active_device.is_assembler) {
             if(campaign_hit(_x,_y,assembler_back_rect(_g))) {campaign_table(_g);return true;}
             return false;
-        }
-        if(instance_exists(_g.active_device)&&_g.active_device.is_order&&_g.debug_tools&&campaign_hit(_x,_y,campaign_skip_rect(_g))) {
-            campaign_debug_skip_order(_g);return true;
         }
         if(campaign_hit(_x,_y,[_g.sidebar_width+448,16,_g.sidebar_width+616,50])) {sfx_action(campaign_sell(_g));return true;}
         if(campaign_hit(_x,_y,[_g.sidebar_width+16,16,_g.sidebar_width+152,50])) {campaign_table(_g);return true;}
@@ -359,8 +322,7 @@ function campaign_gui_click(_g,_x,_y) {
             if(_g.active_device.is_generator) campaign_table(_g);
             else if(_g.active_device.is_recycler||_g.active_device.is_assembler) return false;
             else if(_g.active_device.is_order) sfx_action(campaign_complete(_g));
-            else if(!_g.active_device.cover_open) campaign_debug_unscrew(_g);
-            else campaign_finish(_g);
+            else if(_g.active_device.cover_open) campaign_finish(_g);
             return true;
         }
         if(campaign_hit(_x,_y,[16,_g.inventory_footer,64,_g.inventory_footer+30])) {campaign_inventory_page(_g,-1);return true;}
@@ -400,8 +362,9 @@ function campaign_gui_draw(_g) {
     draw_set_font(_g.ui_font);draw_set_alpha(1);draw_set_halign(fa_left);draw_set_valign(fa_top);draw_set_color(c_white);
     if(global.mode==GameMode.Menu) {
         campaign_button([24,20,240,58],"Buy device {coin} 25",_g.money>=25&&array_length(_g.table_devices)<6);
-        campaign_button([255,20,475,58],"Get a plate",!_g.table_plate&&_g.earn_remaining<=0);
-        draw_set_color(c_white);ui_text(500,28,"{coin} "+string(_g.money));
+        campaign_button([255,20,495,58],"Get a plate {coin} +20",!_g.table_plate&&_g.earn_remaining<=0);
+        audio_controls_draw(_g);
+        draw_set_color(c_white);ui_text(560,28,"{coin} "+string(_g.money));
         ui_text(730,28,"{scrap} "+string(_g.scrap));
         var tier_label=instance_exists(_g.order_device)&&_g.order_device.order_tier==2?" / Tier 2":"";
         var order_rect=campaign_order_rect();
@@ -416,6 +379,16 @@ function campaign_gui_draw(_g) {
             draw_set_color(c_white);ui_text(l.left+208,24,string(_g.scrap));
             draw_set_font(game_font_default());return;
         }
+        if(d.is_generator) {
+            draw_set_color(c_ltgray);
+            ui_text_ext(_g.sidebar_width+24,100,"This generator powers the robots on your table.\nAdd modules and wire them into the circuit to increase energy.",20,room_width-_g.sidebar_width-48);
+        } else {
+            var help=d.is_order?"Place modules on the board and wire them into a circuit.\nMatch all the required stats to complete the order.":
+                (d.is_recycler?"Place unwanted modules on this board to recycle them into scrap.\nEach takes 30s and returns half its scrap cost. Use scrap to craft modules.":
+                "Dismantle this device to collect modules for the big order.\nUnscrew the cover, then move the modules into your inventory.");
+            draw_set_color(c_ltgray);
+            ui_text_ext(_g.sidebar_width+24,100,help,20,room_width-_g.sidebar_width-48);
+        }
         campaign_button([_g.sidebar_width+16,16,_g.sidebar_width+152,50],"Table");
         if(!d.is_generator&&!d.is_assembler)
             campaign_sprite(spr_RMB_Rotate,[_g.sidebar_width+16,58,_g.sidebar_width+80,90]);
@@ -427,10 +400,8 @@ function campaign_gui_draw(_g) {
         }
         else if(d.is_order) {
             campaign_button([_g.sidebar_width+168,16,_g.sidebar_width+433,50],d.completed?"All orders complete":"Deliver {coin} +"+string(d.order_reward),d.requirements_met&&!d.completed);
-            if(_g.debug_tools) campaign_button(campaign_skip_rect(_g),"Skip (debug)",!d.completed);
         }
         else if(d.cover_open) campaign_button([_g.sidebar_width+168,16,_g.sidebar_width+433,50],_g.finish_confirm?"Discard parts?":"Finish dismantling");
-        else if(_g.debug_tools) campaign_button([_g.sidebar_width+168,16,_g.sidebar_width+433,50],"Unscrew all (debug)");
         if(!d.is_order&&!d.is_generator&&!d.is_recycler&&!d.is_assembler&&d.cover_open) campaign_button([_g.sidebar_width+448,16,_g.sidebar_width+616,50],"Sell {coin} +"+string(d.repair_price),campaign_can_sell(_g,d));
         if(_g.finish_confirm) {draw_set_color(c_red);ui_text(_g.sidebar_width+16,98,"Parts inside will be lost. Click again to confirm.");}
         if(_g.stats_height>0) {
@@ -450,13 +421,15 @@ function campaign_gui_draw(_g) {
             draw_set_color(make_color_rgb(100,125,150));
             draw_rectangle(8,8,_g.sidebar_width-8,_g.stats_height,true);
             draw_set_color(c_white);
+            var hint_height=d.is_order?48:0;
+            if(d.is_order) ui_text_ext(16,16,"Meet every requirement\nto complete the order.",20,_g.sidebar_width-32);
             var visible_row=0;
             for(var k=0;k<array_length(keys);++k) {
                 var key=keys[k],goal={min:d.stats_min,max:d.stats_max};
                 if(!struct_exists(goal.min,key)&&!struct_exists(goal.max,key)&&!(d.is_generator&&k<4)) continue;
                 var lower=struct_exists(goal.min,key)?struct_get(goal.min,key):undefined;
                 var upper=struct_exists(goal.max,key)?struct_get(goal.max,key):undefined;
-                stat_bar_draw(16,16+visible_row*38,icons[k],struct_get(d.current_stats,key),lower,upper);
+                stat_bar_draw(16,16+hint_height+visible_row*38,icons[k],struct_get(d.current_stats,key),lower,upper);
                 visible_row++;
             }
         }
@@ -487,14 +460,7 @@ function stat_bar_model(_value,_min,_max) {
     var valid=(is_undefined(_min)||_value>=_min)&&(is_undefined(_max)||_value<=_max);
     return {low:0,high:20,unit:1,count:20,valid:valid};
 }
-function stat_bar_goal(_min,_max) {
-    if(is_undefined(_min)&&is_undefined(_max)) return "-";
-    if(is_undefined(_min)) return "<= "+string(_max);
-    if(is_undefined(_max)) return ">= "+string(_min);
-    if(_min==_max) return "= "+string(_min);
-    if(_min>_max) return "Invalid bounds";
-    return string(_min)+".."+string(_max);
-}
+
 function stat_bar_draw(_x,_y,_icon,_value,_min,_max,_module_stat = false) {
     var m=stat_bar_model(_value,_min,_max);
     var filtering=gpu_get_texfilter();gpu_set_texfilter(false);
@@ -540,22 +506,30 @@ function stat_bar_draw(_x,_y,_icon,_value,_min,_max,_module_stat = false) {
 
 function module_stat_card(_item,_anchor_x,_anchor_y) {
     var keys=game_stat_keys(),icons=game_stat_icons();
+    var adapter=_item.object_index==obj_module_adapter||_item.object_index==obj_module_adapter_corner;
     var value_width=0,visible_count=0;
     for(var i=0;i<array_length(keys);++i) {
-        var value=bal_stat(_item.stats,keys[i]);
+        var value=device_stat_value(_item.stats,keys[i]);
         if(value==0) continue;
         visible_count++;
         value_width=max(value_width,string_width((value>0?"+":"")+string(value)));
     }
-    if(visible_count==0) return;
-    var width=max(96,64+value_width),height=16+visible_count*38;
+    if(visible_count==0&&!adapter) return;
+    var width=adapter?144:max(96,64+value_width),height=adapter?56:16+visible_count*38;
     var px=clamp(_anchor_x-width/2,8,room_width-width-8);
     var py=clamp(_anchor_y-height-10,8,room_height-height-8);
     draw_set_alpha(1);draw_set_color(make_color_rgb(15,22,32));draw_rectangle(px,py,px+width,py+height,false);
     draw_set_color(make_color_rgb(130,155,180));draw_rectangle(px,py,px+width,py+height,true);
+    if(adapter) {
+        draw_set_color(port_type_color(1));draw_rectangle(px+12,py+16,px+44,py+40,false);
+        draw_set_color(c_white);draw_rectangle(px+56,py+26,px+82,py+30,false);
+        draw_triangle(px+80,py+18,px+92,py+28,px+80,py+38,false);
+        draw_set_color(port_type_color(2));draw_rectangle(px+100,py+16,px+132,py+40,false);
+        draw_set_color(c_white);return;
+    }
     var visible_row=0;
     for(var i=0;i<array_length(keys);++i) {
-        var value=bal_stat(_item.stats,keys[i]);
+        var value=device_stat_value(_item.stats,keys[i]);
         if(value==0) continue;
         module_stat_row(px+8,py+8+visible_row*38,icons[i],keys[i],value);
         visible_row++;
@@ -587,7 +561,7 @@ function campaign_device_layout(_g,_device) {
     var keys=game_stat_keys(),required=0;
     for(var i=0;i<array_length(keys);++i)
         if((_device.is_generator&&i<4)||struct_exists(_device.stats_min,keys[i])||struct_exists(_device.stats_max,keys[i])) required++;
-    _g.stats_height=required>0?24+required*38:0;
+    _g.stats_height=required>0?24+required*38+(_device.is_order?48:0):0;
     _g.inventory_y=_g.stats_height+16;
     _g.inventory_rows=max(1,floor((room_height-_g.inventory_y-56)/_g.inventory_size));
     _g.inventory_capacity=_g.inventory_cols*_g.inventory_rows;

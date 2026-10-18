@@ -59,7 +59,7 @@ function stat_bar_tests() {
     surface_reset_target();surface_save(s,"fixed-stat-panel-preview.png");surface_free(s);
     stat_test_assert(16+80+20*16<=g.sidebar_width-8,"number and all twenty cells fit inside sidebar backing");
     // Real orders, unmodified requirements: inspect the full 20th cell on every row.
-    var orders=[obj_order,obj_order_2,obj_order_3],keys=manual_keys();
+    var orders=[obj_order,obj_order_2,obj_order_3],keys=["energy","weight","heat","stability"];
     for(var order_index=0;order_index<array_length(orders);++order_index) {
         var order=campaign_create_device(orders[order_index]);campaign_open(g,order);
         var rows=0;

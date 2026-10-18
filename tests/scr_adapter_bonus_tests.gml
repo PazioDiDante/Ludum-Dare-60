@@ -78,10 +78,6 @@ function adapter_bonus_tests() {
         instance_destroy(d);
     }
     bonus_assert(!campaign_adapter_bonus(g.generator)&&!campaign_adapter_bonus(g.order_device),"orders and generator receive no bonus loot");
-    var cfg=lab_defaults();lab_sync_game(cfg);
-    cfg.progression_catalog_revision=2;cfg.modules[14].drop_weight="0.5";cfg.modules[15].drop_weight="0.5";cfg.min.speed="4";
-    lab_add_progression_modules(cfg);
-    bonus_assert(cfg.modules[14].drop_weight=="0"&&cfg.modules[15].drop_weight=="0"&&cfg.modules[14].adapter_bonus&&cfg.min.speed=="4","existing saved adapter weights migrate to bonus-only without resetting goals");
     g.order_index=old_index;g.module_types=pool;
     show_debug_message("ADAPTER_BONUS_RESULT passes="+string(global.adapter_bonus_passes)+" failures=0 sample=500 hits="+string(hits)+" straight="+string(straight)+" corner="+string(corner));
 }

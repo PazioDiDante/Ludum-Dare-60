@@ -147,7 +147,7 @@ function board_drag_update(_device,_px,_py) {
             var c=floor((_px-obj_game.inventory_x)/obj_game.inventory_size)-item.grab_col;
             var r=floor((_py-obj_game.inventory_y)/obj_game.inventory_size)-item.grab_row;
             item.x=obj_game.inventory_x+c*obj_game.inventory_size;item.y=obj_game.inventory_y+r*obj_game.inventory_size;
-            item.drop_valid=instance_exists(item.debug_inventory_source)||inventory_can_place(obj_game,item,c,r,obj_game.inventory_page);
+            item.drop_valid=inventory_can_place(obj_game,item,c,r,obj_game.inventory_page);
         }
     }
     return item.drop_valid;

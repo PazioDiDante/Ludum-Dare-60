@@ -15,7 +15,7 @@ function plate_tests() {
     plate_assert(!g.table_plate&&g.earn_remaining==0,"no starting plate or timer");
     plate_assert(!campaign_solder_plate(g),"manual income requires a plate");
     campaign_tick(g,100);plate_assert(g.money==start,"no plate means no passive income");
-    g.debug_tools=true;
+
     plate_assert(campaign_gui_click(g,270,30)&&g.table_plate&&g.money==start&&g.earn_remaining==0,"former income button creates one plate without starting or paying");
     plate_assert(!campaign_earn(g)&&g.table_plate,"second request cannot stack plates");
     campaign_tick(g,100);plate_assert(g.money==start&&g.earn_remaining==0,"idle table plate never pays by itself");
@@ -69,7 +69,7 @@ function plate_tests() {
     plate_assert(g.money==cash+40&&!a.working&&!b.working,"idle and repeated completion never create free money");
     a.working=true;a.has_plate=false;robot_finish(g,a);
     plate_assert(g.money==cash+40&&!a.working,"finish without an owned plate cannot pay");
-    campaign_earn(g);g.debug_tools=false;
+    campaign_earn(g);
     plate_assert(campaign_solder_plate(g)&&g.earn_duration==5,"normal mode retains five-second manual work");campaign_tick(g,5);
     shop_buy(g,"fast_manual_income");campaign_earn(g);campaign_solder_plate(g);
     plate_assert(g.earn_duration==2.5&&g.earn_remaining==2.5,"existing manual income upgrade applies to plate work");campaign_tick(g,2.5);

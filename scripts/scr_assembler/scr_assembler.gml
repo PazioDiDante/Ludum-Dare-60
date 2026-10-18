@@ -42,7 +42,7 @@ function assembler_start(_g,_robot,_index) {
 function assembler_layout(_g) {
     var screen_width=display_get_gui_width(),width=min(840,screen_width-96);
     var left=floor((screen_width-width)/2),right=left+width;
-    return {left:left,right:right,top:164,row_height:120,page_size:max(1,floor((display_get_gui_height()-220)/120))};
+    return {left:left,right:right,top:180,row_height:120,page_size:max(1,floor((display_get_gui_height()-236)/120))};
 }
 function assembler_back_rect(_g) {
     var l=assembler_layout(_g);return [l.left,16,l.left+136,50];
@@ -77,15 +77,17 @@ function assembler_draw(_g,_d) {
     var l=assembler_layout(_g),available=assembler_available(_g,robot);
     robot.recipe_scroll=clamp(robot.recipe_scroll,0,max(0,array_length(available)-l.page_size));
     draw_set_alpha(1);draw_set_halign(fa_left);draw_set_valign(fa_top);draw_set_font(_g.ui_font);
-    draw_set_color(make_color_rgb(20,27,38));draw_rectangle(l.left-4,96,l.right+4,display_get_gui_height()-12,false);
-    draw_set_color(c_white);draw_text(l.left+12,104,"Modules");
+    draw_set_color(make_color_rgb(20,27,38));draw_rectangle(l.left-4,56,l.right+4,display_get_gui_height()-12,false);
+    draw_set_color(c_ltgray);
+    ui_text_ext(l.left+12,64,"Spend scrap to craft the modules your order needs.\nRecycle unwanted modules with the Scrap master to get more scrap.",20,l.right-l.left-24);
+    draw_set_color(c_white);draw_text(l.left+12,120,"Modules");
     var status=robot.working?(robot.powered?"Assembling: ":"No power: ")+string(ceil(robot.remaining))+"s":
         (array_length(robot.outputs)>0?"Output waiting for inventory space":(robot.powered?"Choose a module - 30s":"Assign 3 energy at the table"));
-    draw_set_color(c_ltgray);draw_text(l.left+12,126,status);
+    draw_set_color(c_ltgray);draw_text(l.left+12,142,status);
     if(robot.working) {
-        robot_module_preview(robot.target_module,[l.right-88,100,l.right-12,142]);
-        draw_set_color(make_color_rgb(40,54,65));draw_rectangle(l.left+12,152,l.right-12,158,false);
-        draw_set_color(robot.powered?c_aqua:c_gray);draw_rectangle(l.left+12,152,l.left+12+(l.right-l.left-24)*(1-robot.remaining/robot.work_seconds),158,false);
+        robot_module_preview(robot.target_module,[l.right-88,116,l.right-12,158]);
+        draw_set_color(make_color_rgb(40,54,65));draw_rectangle(l.left+12,168,l.right-12,174,false);
+        draw_set_color(robot.powered?c_aqua:c_gray);draw_rectangle(l.left+12,168,l.left+12+(l.right-l.left-24)*(1-robot.remaining/robot.work_seconds),174,false);
     }
     var keys=game_stat_keys(),icons=game_stat_icons();
     for(var slot=0;slot<min(l.page_size,array_length(available)-robot.recipe_scroll);++slot) {
@@ -99,7 +101,7 @@ function assembler_draw(_g,_d) {
         var width=(r[2]-r[0]-160)/3;
         for(var k=0;k<array_length(keys);++k) {
             var px=r[0]+136+(k mod 3)*width,py=r[1]+30+(k div 3)*28;
-            var key=keys[k],value=bal_stat(recipe.stats,key);
+            var key=keys[k],value=device_stat_value(recipe.stats,key);
             draw_set_color(c_white);
             game_stat_icon(icons[k],px,py);
             draw_set_color(value==0?c_gray:(module_stat_beneficial(key,value)?c_lime:c_red));

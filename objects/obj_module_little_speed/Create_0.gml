@@ -4,7 +4,6 @@ module_name = "Little speed";
 interaction_label = module_name;
 unlock_after_orders = 3;
 module_color = make_color_rgb(235, 150, 65);
-// Temporary board footprint; values imported from the supplied balance copy.
 shape = [["DR_2"]];
 drop_weight = 1;
 stats.energy = -2;

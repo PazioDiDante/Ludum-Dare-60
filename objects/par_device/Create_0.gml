@@ -15,7 +15,6 @@ small_sprite = -1;      // Thumbnail on the table; orders store it on each insta
 board_offset = [0,0];   // Board centre offset relative to the device.
 module_pool = [obj_module_battery,obj_module_cooler];
 module_min = 2; module_max = 4;
-layout_seed = -1;       // -1: fresh random layout, >=0: reproducible layout.
 
 campaign=false;is_order=false;completed=false;
 campaign_loot_types=[]; // Fixed starter contents; empty uses the normal weighted loot.
@@ -37,7 +36,6 @@ children = [];
 selected_module = noone;
 wires = [];
 circuit_connected = false; // True when board ports 0 and 1 are linked through modules.
-circuit_check_count = 0; // Debug counter: only actual connection edits increment it.
 board_ports = []; // Two fixed contacts, generated once when the cover opens.
 board_port_types = [1,1]; // Set in a child device, e.g. [1,2] for different types.
 board_ports_enabled=true;

@@ -342,7 +342,6 @@ function board_ports_draw(_device) {
 // Each module conducts between all its ports. The board's two ports are
 // separate endpoints: never traverse the board as if it were a module.
 function circuit_update_inner(_device) {
-    _device.circuit_check_count++;
     _device.circuit_connected = false;
     if (array_length(_device.board_ports) < 2) return false;
     var start = board_port_reference(_device,0);

@@ -5,7 +5,7 @@ function screw_test_assert(_ok,_message) {
 function screw_timer_tests() {
     global.screw_test_passes=0;
     var g=instance_find(obj_game,0);
-    screw_test_assert(!g.debug_tools&&!global.debug_enabled,"debug disabled by default");
+    screw_test_assert(!variable_instance_exists(g,"debug_tools")&&!variable_global_exists("debug_enabled"),"release has no debug state");
     g.money=0;campaign_earn(g);campaign_solder_plate(g);
     screw_test_assert(g.money==0&&g.earn_remaining==5,"money requires normal five-second action");
     campaign_tick(g,4);screw_test_assert(g.money==0,"no instant debug payout");
@@ -15,7 +15,7 @@ function screw_timer_tests() {
     var screws=[];
     for(var i=0;i<array_length(d.children);++i) {var child=d.children[i];if(instance_exists(child)&&child.object_index==obj_screw) array_push(screws,child);}
     var a=screws[0],b=screws[1],initial=d.remaining;
-    screw_test_assert(!campaign_debug_unscrew(g)&&d.remaining==initial,"debug unscrew action disabled");
+    screw_test_assert(d.remaining==initial,"cover starts with all screws");
     screw_test_assert(pointer_dispatch(a,mb_left)&&a.unscrewing&&a.unscrew_remaining==2&&d.remaining==initial,"click starts two-second timer without removing screw");
     screw_test_assert(!pointer_dispatch(a,mb_left)&&!pointer_dispatch(b,mb_left)&&g.active_screw==a&&!b.unscrewing,"cannot restart timer or run second screw");
     screw_tick(g,0.5);screw_test_assert(instance_exists(a)&&a.unscrew_remaining==1.5&&d.remaining==initial,"no removal after half a second");

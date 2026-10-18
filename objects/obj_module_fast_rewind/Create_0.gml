@@ -4,7 +4,6 @@ module_name = "Fast rewind";
 interaction_label = module_name;
 unlock_after_orders = 3;
 module_color = make_color_rgb(220, 115, 175);
-// Temporary board footprint; values imported from the supplied balance copy.
 shape = [["L_1", 1, 1, "R_1"]];
 drop_weight = 1;
 stats.energy = -3;
