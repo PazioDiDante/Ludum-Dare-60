@@ -1,3 +1,0 @@
-2026-10-18 — Windows VM, runtime 2026.0.0.23
-AUDIO_CONTROLS_RESULT passes=17 failures=0
-AUDIO_RESULT passes=142 failures=0
